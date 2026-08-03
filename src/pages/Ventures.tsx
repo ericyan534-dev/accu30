@@ -19,14 +19,14 @@ export default function Ventures() {
               >
                 <span className="sign text-vermillion">{venture.floor}</span>
                 <div>
-                  <h2 className="text-3xl transition-colors group-hover:text-vermillion">
+                  <h2 className="text-3xl underline decoration-stone-edge decoration-1 underline-offset-[6px] transition-colors group-hover:text-vermillion group-hover:decoration-vermillion">
                     {venture.name}
                   </h2>
                   <p className="sign mt-2 text-ink-3">{venture.category}</p>
                   <p className="prose-body mt-4 text-ink-2">{venture.summary}</p>
                 </div>
-                <span className="sign self-center text-ink-3 group-hover:text-ink">
-                  {venture.sections.length} sections →
+                <span className="sign self-center text-ink-2 group-hover:text-ink md:text-right">
+                  Read in full · {venture.sections.length} sections →
                 </span>
               </Link>
             </li>

@@ -55,7 +55,7 @@ export default function TabRail() {
           aria-label="Sections"
         >
           {copy.nav.map(item => (
-            <NavLink key={item.to} to={item.to} className="tab">
+            <NavLink viewTransition key={item.to} to={item.to} className="tab">
               <span className="tab-floor">{item.floor}</span>
               {item.label}
             </NavLink>
@@ -86,6 +86,7 @@ export default function TabRail() {
           <div className="wrap py-2">
             {copy.nav.map(item => (
               <NavLink
+                viewTransition
                 key={item.to}
                 to={item.to}
                 className="dir-row"

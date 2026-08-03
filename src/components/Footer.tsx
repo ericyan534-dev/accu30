@@ -13,17 +13,17 @@ export default function Footer() {
           <p className="mt-3 text-sm leading-relaxed text-on-board-2">{copy.org.mission}</p>
         </div>
 
-        <nav aria-label="Sections" className="grid content-start gap-2">
+        <nav aria-label="Sections" className="grid content-start">
           {copy.nav.slice(0, 4).map(item => (
-            <Link key={item.to} to={item.to} className="sign text-on-board-2 hover:text-on-board">
+            <Link viewTransition key={item.to} to={item.to} className="link-row sign text-on-board-2 hover:text-on-board">
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <nav aria-label="More sections" className="grid content-start gap-2">
+        <nav aria-label="More sections" className="grid content-start">
           {copy.nav.slice(4).map(item => (
-            <Link key={item.to} to={item.to} className="sign text-on-board-2 hover:text-on-board">
+            <Link viewTransition key={item.to} to={item.to} className="link-row sign text-on-board-2 hover:text-on-board">
               {item.label}
             </Link>
           ))}

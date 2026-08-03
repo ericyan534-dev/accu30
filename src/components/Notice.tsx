@@ -6,17 +6,20 @@ interface NoticeProps {
   readonly surface?: 'stone' | 'board'
 }
 
-/** A stated condition, set as a small plate: a vermillion label above a rule,
- *  with the text beneath. Used for the building's planned status and for
- *  anything else the reader must not misread. */
+/** A stated condition, set as a small plate. Used for the building's planned
+ *  status and anything else the reader must not misread.
+ *
+ *  The vermillion lives in the rule, not the label. Red type on the dark board
+ *  measures 3.14:1 at this size — under AA — and the rule carries the same
+ *  signal without asking colour to do the contrast work. */
 export default function Notice({ label, children, surface = 'stone' }: NoticeProps) {
-  const rule = surface === 'stone' ? 'border-ink' : 'border-on-board'
+  const labelColor = surface === 'stone' ? 'text-vermillion' : 'text-on-board'
   const body = surface === 'stone' ? 'text-ink-2' : 'text-on-board-2'
 
   return (
-    <div className={`max-w-[64ch] border-t ${rule} pt-3`}>
-      <p className="sign mb-2 text-vermillion">{label}</p>
-      <p className={`text-sm leading-relaxed ${body}`}>{children}</p>
+    <div className="max-w-[64ch] border-t-2 border-vermillion pt-3">
+      <p className={`sign mb-2 ${labelColor}`}>{label}</p>
+      <p className={`prose-small ${body}`}>{children}</p>
     </div>
   )
 }

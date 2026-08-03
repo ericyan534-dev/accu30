@@ -12,8 +12,9 @@ export default function Home() {
     <>
       {/* ── The facade. Mission cut into stone, dragon in relief. ────────── */}
       <section className="relative grid min-h-[calc(100svh-3.5rem)] content-between gap-8 overflow-hidden bg-linear-to-b from-stone to-stone-deep py-10 sm:py-14">
+        {/* Hidden between md and lg, where the mark would cross the prose. */}
         <Relief
-          className="top-1/2 right-[-6%] w-[min(56vw,660px)] -translate-y-1/2 text-ink"
+          className="top-1/2 right-[-6%] hidden w-[min(56vw,660px)] -translate-y-1/2 text-ink max-md:block lg:block"
           opacity={0.07}
         />
 
@@ -31,9 +32,7 @@ export default function Home() {
         </div>
 
         <div className="wrap relative">
-          <h1
-            className="cut incised-stone display-hero max-w-[19ch]"
-          >
+          <h1 className="cut incised-stone display-hero max-w-[19ch]">
             {copy.org.missionLead}{' '}
             <span className="text-vermillion">{copy.org.missionAccent}</span>
           </h1>
@@ -50,9 +49,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* The proof rail. These three facts are the organisation's hardest
-            evidence, so they are set as discrete cells rather than a run-on
-            string, and the four ventures are named above the fold. */}
+        {/* The proof rail: three hard facts as discrete cells, then the four
+            ventures named — the only evidence of execution, above the fold. */}
         <div className="wrap relative">
           <hr className="border-0 border-t border-stone-edge" />
           <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-3">
@@ -69,19 +67,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── The board. The whole organisation, indexed. ─────────────────── */}
-      <section className="board on-dark py-14 sm:py-20" aria-labelledby="directory-heading">
+      {/* ── Screen two is the EVIDENCE, not the navigation. These four
+             ventures are the only things that already exist. ─────────────── */}
+      <section className="board on-dark py-14 sm:py-20" aria-labelledby="ventures-heading">
         <div className="wrap">
-          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-4">
-            <h2
-              id="directory-heading"
-              className="sign-lg display-4 text-on-board"
-            >
-              {copy.home.directoryHeading}
+          <div className="mb-9 flex flex-wrap items-baseline justify-between gap-4">
+            <h2 id="ventures-heading" className="sign-lg display-4 text-on-board">
+              {copy.ventures.title}
             </h2>
-            <p className="sign text-on-board-2">{copy.home.directoryNote}</p>
+            <p className="sign text-on-board-2">Operating today</p>
           </div>
-          <Directory animate />
+
+          <ul className="list-none p-0">
+            {copy.ventures.items.map((venture, i) => (
+              <li key={venture.slug} className="border-b border-white/12 last:border-b-0">
+                <Link
+                  to={`/ventures/${venture.slug}`}
+                  className="set-in group grid gap-x-8 gap-y-2 py-7 md:grid-cols-[4rem_1fr_9rem] md:items-baseline"
+                  style={{ animationDelay: `${i * 70}ms` }}
+                >
+                  <span className="dir-floor text-on-board-2 md:text-left">{venture.floor}</span>
+                  <div>
+                    <h3 className="dir-name incised text-xl transition-colors group-hover:text-vermillion-lit">
+                      {venture.name}
+                    </h3>
+                    <p className="sign mt-1.5 text-on-board-2">{venture.category}</p>
+                    <p className="prose-small mt-3 text-on-board-2">{venture.summary}</p>
+                  </div>
+                  <span className="sign self-center text-on-board-2 underline decoration-white/30 underline-offset-4 group-hover:text-on-board md:text-right">
+                    Read in full
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -89,9 +108,7 @@ export default function Home() {
       <section className="py-16 sm:py-24">
         <div className="wrap grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <div>
-            <h2 className="display-2 max-w-[20ch]">
-              {copy.home.claimHeading}
-            </h2>
+            <h2 className="display-2 max-w-[20ch]">{copy.home.claimHeading}</h2>
             <div className="mt-7">
               {copy.home.claimBody.map((para, i) => (
                 <p key={i} className={`prose-body${i > 0 ? ' mt-4 text-ink-2' : ''}`}>
@@ -104,9 +121,15 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 self-start">
+          {/* items-start: the plate must not stretch a short image into a
+              tall empty mount. */}
+          <div className="grid grid-cols-2 items-start gap-4 self-start">
             <figure className="plate">
-              <img src={exteriorImg} alt="A street-level view of a community centre building" loading="lazy" />
+              <img
+                src={exteriorImg}
+                alt="A street-level view of a community centre building"
+                loading="lazy"
+              />
               <figcaption>
                 <span>Reference</span>
                 <span>Exterior</span>
@@ -119,8 +142,24 @@ export default function Home() {
                 <span>Reading room</span>
               </figcaption>
             </figure>
-            <p className="sign col-span-2 text-ink-3">{copy.building.imageryNotice}</p>
+            <p className="prose-small col-span-2 text-ink-2">{copy.building.imageryNotice}</p>
           </div>
+        </div>
+      </section>
+
+      {/* ── The directory, where a directory belongs: by the door. ──────── */}
+      <section
+        className="board on-dark border-t border-white/10 py-14"
+        aria-labelledby="directory-heading"
+      >
+        <div className="wrap">
+          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-4">
+            <h2 id="directory-heading" className="sign-lg display-4 text-on-board">
+              {copy.home.directoryHeading}
+            </h2>
+            <p className="sign text-on-board-2">{copy.home.directoryNote}</p>
+          </div>
+          <Directory />
         </div>
       </section>
     </>

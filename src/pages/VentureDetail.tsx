@@ -21,13 +21,16 @@ export default function VentureDetail() {
       <div className="wrap grid gap-10 py-12 sm:py-16 lg:grid-cols-[16rem_1fr] lg:gap-16">
         {/* the venture's own contents, as a small plate */}
         <nav aria-label="On this page" className="lg:sticky lg:top-24 lg:self-start">
+          <Link to="/ventures" className="link-row sign mb-5 text-ink-2 hover:text-vermillion">
+            ← All ventures
+          </Link>
           <p className="sign mb-4 text-ink-3">Contents</p>
           <ol className="list-none p-0">
             {venture.sections.map((section, i) => (
               <li key={section.label} className="border-t border-stone-edge">
                 <a
                   href={`#${slugify(section.label)}`}
-                  className="sign flex items-baseline gap-3 py-3 text-ink-2 hover:text-vermillion"
+                  className="link-row sign w-full gap-3 text-ink-2 hover:text-vermillion"
                 >
                   <span className="text-ink-3">{String(i + 1).padStart(2, '0')}</span>
                   {section.label}

@@ -74,7 +74,7 @@ export default function Building() {
                 </span>
                 <div>
                   <h3 className="dir-name incised mb-3 text-lg">{space.name}</h3>
-                  <p className="prose-body text-sm leading-relaxed text-on-board-2">{space.body}</p>
+                  <p className="prose-small text-on-board-2">{space.body}</p>
                 </div>
                 {space.image && (
                   <figure className="plate border-white/15 bg-board-raised">

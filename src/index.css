@@ -3,7 +3,7 @@
    Bronze is a material, never a text colour. Vermillion is the only identity
    colour and is sampled from the dragon in the mark. */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -113,14 +113,25 @@
   }
 
   /* ── Signage type ─────────────────────────────────────────────────── */
+  /* Labels only. If a string needs more than one line it is body copy and
+     belongs in .prose-small — see the Label Ceiling rule. */
   .sign {
     font-family: var(--font-sign);
     text-transform: uppercase;
     font-variation-settings: 'wdth' 74;
-    letter-spacing: 0.14em;
-    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.35;
+  }
+
+  /* The register the disclaimers and notices actually need: sentences, in
+     the reading face, at a size a 60-year-old can read. */
+  .prose-small {
+    font-family: var(--font-prose);
+    font-size: 0.94rem;
+    line-height: 1.55;
+    max-width: 64ch;
   }
   .sign-lg {
     font-family: var(--font-sign);
@@ -178,8 +189,15 @@
     transform: translateX(6px);
   }
 
+  /* Grid placement is scoped to .dir-row. These classes are also used for
+     their typography alone (the building programme, the mobile nav panel);
+     an unscoped `grid-area` there invents implicit tracks in the host grid
+     and collapses the text column. */
+  .dir-row > .dir-name { grid-area: name; }
+  .dir-row > .dir-sub { grid-area: note; }
+  .dir-row > .dir-floor { grid-area: floor; align-self: center; }
+
   .dir-name {
-    grid-area: name;
     font-family: var(--font-sign);
     font-variation-settings: 'wdth' 76;
     font-weight: 600;
@@ -188,14 +206,11 @@
     font-size: clamp(0.95rem, 1.4vw, 1.16rem);
   }
   .dir-sub {
-    grid-area: note;
     font-family: var(--font-prose);
     font-size: 0.88rem;
     color: var(--color-on-board-2);
   }
   .dir-floor {
-    grid-area: floor;
-    align-self: center;
     font-family: var(--font-sign);
     font-variation-settings: 'wdth' 70;
     font-weight: 500;
@@ -211,11 +226,10 @@
       grid-template-areas: 'name note floor';
     }
     .dir-sub {
-      font-size: 0.82rem;
-      font-style: italic;
+      font-size: 0.84rem;
       text-align: right;
     }
-    .dir-floor { align-self: baseline; }
+    .dir-row > .dir-floor { align-self: baseline; }
   }
 
   .dir-row.tenant .dir-name {
@@ -261,7 +275,7 @@
   .action-ghost {
     background: transparent;
     color: var(--color-ink);
-    box-shadow: inset 0 0 0 1px var(--color-stone-edge);
+    box-shadow: inset 0 0 0 1px var(--color-ink-3);
   }
   .action-ghost:hover {
     background: transparent;
@@ -291,10 +305,10 @@
     font-family: var(--font-sign);
     font-variation-settings: 'wdth' 72;
     text-transform: uppercase;
-    letter-spacing: 0.13em;
-    font-size: 0.6rem;
+    letter-spacing: 0.11em;
+    font-size: 0.72rem;
     color: var(--color-ink-2);
-    padding-top: 0.55rem;
+    padding-top: 0.6rem;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
@@ -333,8 +347,8 @@
   }
   .tab-floor {
     font-variant-numeric: tabular-nums;
-    font-size: 0.62rem;
-    opacity: 0.55;
+    font-size: 0.7rem;
+    opacity: 0.75;
   }
 
   /* The elevator lantern's floor marks. Same step as .tab-floor; colour and
@@ -343,12 +357,20 @@
     font-family: var(--font-sign);
     font-variation-settings: 'wdth' 70;
     font-variant-numeric: tabular-nums;
-    font-size: 0.62rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-align: center;
-    padding: 0.15rem 0.25rem;
+    padding: 0.2rem 0.3rem;
     transition: color 150ms ease-out;
+  }
+
+  /* Nav links in lists: the mark stays small, the target does not. */
+  .link-row {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
   }
 
   .wrap {
@@ -363,9 +385,40 @@
 }
 
 @layer utilities {
-  /* The one authored motion moment: the board sets itself, like letters
-     pushed into a changeable-letter board, once. Content is visible by
-     default — this only offsets it. */
+  /* ── Motion thesis ────────────────────────────────────────────────────
+     The form has two native movements and no others.
+
+     1. Plates set into the board. The listing arrives a row at a time, the
+        way letters are pushed into a changeable-letter board. It fires once,
+        on the evidence — the ventures — not on the navigation.
+     2. Changing floors. Route changes move the content pane vertically, the
+        way a lift arrives: the frame (header, footer, floor rail) holds
+        still and only the floor changes.
+
+     Everything else is feedback and stays under 220ms. Content is visible by
+     default; motion only offsets it. */
+
+  /* Only the content pane transitions — the frame stays put. */
+  main {
+    view-transition-name: page;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(page) {
+      animation: floor-leave 200ms cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    ::view-transition-new(page) {
+      animation: floor-enter 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+  }
+
+  @keyframes floor-leave {
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+  @keyframes floor-enter {
+    from { opacity: 0; transform: translateY(14px); }
+  }
+
   @keyframes set-row {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: none; }

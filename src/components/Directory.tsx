@@ -14,6 +14,7 @@ export default function Directory({ animate = false }: DirectoryProps) {
     <div>
       {copy.directory.map((entry, i) => (
         <Link
+          viewTransition
           key={entry.to + entry.label}
           to={entry.to}
           className={`dir-row${entry.tenant ? ' tenant' : ''}${animate ? ' set-in' : ''}`}
