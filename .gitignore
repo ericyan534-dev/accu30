@@ -1,0 +1,17 @@
+node_modules
+dist
+
+# OS / editor
+.DS_Store
+
+# ── Kept out of the public repo (internal working material) ──────────────
+# Product strategy: records what ACC-U30 cannot yet claim. Internal only.
+PRODUCT.md
+# Design system record + approval-round comps, screenshots and critiques.
+DESIGN.md
+.impeccable/
+# Source content document.
+*.docx
+# Previous project snapshot and its original assets — content reference only.
+ACC-U30 Website Design V2/
+src/imports/

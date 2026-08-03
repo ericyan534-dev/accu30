@@ -1,0 +1,376 @@
+/* ACC-U30 — "The Directory Board"
+   Stone carries monumental quiet. Board carries dense listed content.
+   Bronze is a material, never a text colour. Vermillion is the only identity
+   colour and is sampled from the dragon in the mark. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sign: 'Archivo', system-ui, sans-serif;
+  --font-prose: 'Source Serif 4', Georgia, serif;
+
+  --color-stone: #e6e8e7;
+  --color-stone-deep: #d5d9d7;
+  --color-stone-edge: #bfc5c2;
+
+  --color-board: #14181a;
+  --color-board-raised: #1d2325;
+  --color-board-groove: #0c0f10;
+
+  --color-ink: #14181a;
+  --color-ink-2: #3e4649; /* 7.2:1 on stone */
+  --color-ink-3: #5a6366; /* 4.6:1 on stone — the smallest permitted */
+  --color-on-board: #e6e8e7; /* 14.3:1 on board */
+  --color-on-board-2: #93a0a3; /* 6.8:1 on board, tinted from the slate */
+
+  --color-vermillion: #c4282d;
+  --color-vermillion-lit: #d9464a;
+
+  --color-bronze: #6f5b3e;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-stone);
+    color: var(--color-ink);
+    font-family: var(--font-prose);
+    font-optical-sizing: auto;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-sign);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p { margin: 0; }
+
+  /* Focus is a cut edge, visible on stone and on board alike. */
+  :focus-visible {
+    outline: 2px solid var(--color-vermillion);
+    outline-offset: 3px;
+  }
+  .on-dark :focus-visible { outline-color: var(--color-vermillion-lit); }
+
+  ::selection { background: var(--color-vermillion); color: #fff; }
+}
+
+@layer components {
+  /* ── Materials ────────────────────────────────────────────────────── */
+
+  /* A dark plate set into the stone wall: dark groove above, lit lip below. */
+  .board {
+    background: var(--color-board);
+    color: var(--color-on-board);
+    box-shadow:
+      inset 0 1px 0 var(--color-board-groove),
+      0 1px 0 rgb(255 255 255 / 0.5);
+  }
+
+  /* Letters cut into a dark plate. */
+  .incised {
+    text-shadow:
+      0 -1px 1px rgb(0 0 0 / 0.75),
+      0 1px 0 rgb(198 168 118 / 0.2);
+  }
+
+  /* Letters cut into stone — light falls on the lower lip of the cut. */
+  .incised-stone {
+    text-shadow:
+      0 1px 0 rgb(255 255 255 / 0.75),
+      0 -1px 1px rgb(20 24 26 / 0.26);
+  }
+
+  /* The dragon in relief. Recoloured by `color`, never by a blend mode. */
+  .relief {
+    background-color: currentColor;
+    -webkit-mask: var(--relief-src) no-repeat center / contain;
+    mask: var(--relief-src) no-repeat center / contain;
+    pointer-events: none;
+  }
+
+  /* ── Signage type ─────────────────────────────────────────────────── */
+  .sign {
+    font-family: var(--font-sign);
+    text-transform: uppercase;
+    font-variation-settings: 'wdth' 74;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .sign-lg {
+    font-family: var(--font-sign);
+    text-transform: uppercase;
+    font-variation-settings: 'wdth' 68;
+    letter-spacing: 0.02em;
+    font-weight: 800;
+  }
+
+  /* Monumental cut lettering. */
+  .cut {
+    font-family: var(--font-sign);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-variation-settings: 'wdth' 84;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+
+  /* ── The display ramp ──────────────────────────────────────────────────
+     Five named steps by role. Nothing in a page sets a literal display size;
+     if a new size seems necessary, add a step here instead. */
+  .display-hero { font-size: clamp(2.1rem, 5.4vw, 4.4rem); } /* the mission, home only */
+  .display-1    { font-size: clamp(2rem, 5.4vw, 4rem); }     /* page titles */
+  .display-2    { font-size: clamp(1.7rem, 4vw, 3rem); }     /* major section heads */
+  .display-3    { font-size: clamp(1.4rem, 3.2vw, 2.4rem); } /* pull quotes */
+  .display-4    { font-size: clamp(1.3rem, 3vw, 2rem); }     /* board headings */
+
+  /* ── The directory listing ────────────────────────────────────────── */
+  /* Below 40rem the note gets its own line rather than being crushed between
+     the name and the floor number. 44px minimum for touch. */
+  .dir-row {
+    display: grid;
+    grid-template-columns: 1fr 3.4rem;
+    grid-template-areas: 'name floor' 'note floor';
+    gap: 0.15rem clamp(0.6rem, 2vw, 2rem);
+    align-items: baseline;
+    min-height: 44px;
+    align-content: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgb(230 232 231 / 0.11);
+    text-decoration: none;
+    color: inherit;
+    /* transform + colour only: never animate layout properties */
+    transition:
+      background-color 180ms ease-out,
+      transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dir-row:last-child { border-bottom: 0; }
+
+  /* the plate slides out of the rack */
+  a.dir-row:hover,
+  a.dir-row:focus-visible {
+    background: var(--color-board-raised);
+    transform: translateX(6px);
+  }
+
+  .dir-name {
+    grid-area: name;
+    font-family: var(--font-sign);
+    font-variation-settings: 'wdth' 76;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: clamp(0.95rem, 1.4vw, 1.16rem);
+  }
+  .dir-sub {
+    grid-area: note;
+    font-family: var(--font-prose);
+    font-size: 0.88rem;
+    color: var(--color-on-board-2);
+  }
+  .dir-floor {
+    grid-area: floor;
+    align-self: center;
+    font-family: var(--font-sign);
+    font-variation-settings: 'wdth' 70;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  /* One line once there is room for it. */
+  @media (min-width: 40rem) {
+    .dir-row {
+      grid-template-columns: 1fr auto 3.4rem;
+      grid-template-areas: 'name note floor';
+    }
+    .dir-sub {
+      font-size: 0.82rem;
+      font-style: italic;
+      text-align: right;
+    }
+    .dir-floor { align-self: baseline; }
+  }
+
+  .dir-row.tenant .dir-name {
+    font-weight: 400;
+    padding-left: 1.5rem;
+    letter-spacing: 0.09em;
+    font-size: 0.86rem;
+    color: var(--color-on-board-2);
+    position: relative;
+  }
+  .dir-row.tenant .dir-name::before {
+    content: '';
+    position: absolute;
+    left: 0.3rem;
+    top: 0.58em;
+    width: 0.7rem;
+    height: 1px;
+    background: var(--color-bronze);
+    filter: brightness(1.7);
+  }
+
+  /* ── Actions ──────────────────────────────────────────────────────── */
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-sign);
+    font-variation-settings: 'wdth' 78;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.9rem 1.5rem;
+    background: var(--color-vermillion);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 160ms ease-out;
+  }
+  .action:hover { background: #a81f24; }
+
+  .action-ghost {
+    background: transparent;
+    color: var(--color-ink);
+    box-shadow: inset 0 0 0 1px var(--color-stone-edge);
+  }
+  .action-ghost:hover {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--color-ink);
+  }
+  /* Any dark plate relights its ghost action. */
+  .on-dark .action-ghost {
+    color: var(--color-on-board);
+    box-shadow: inset 0 0 0 1px rgb(230 232 231 / 0.3);
+  }
+  .on-dark .action-ghost:hover { box-shadow: inset 0 0 0 1px var(--color-on-board); }
+
+  /* ── Reference plate: the ONLY way borrowed imagery may appear ─────── */
+  .plate {
+    border: 1px solid var(--color-stone-edge);
+    background: var(--color-stone-deep);
+    padding: 0.5rem;
+    margin: 0;
+  }
+  .plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: saturate(0.55) contrast(1.03);
+  }
+  .plate figcaption {
+    font-family: var(--font-sign);
+    font-variation-settings: 'wdth' 72;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    font-size: 0.6rem;
+    color: var(--color-ink-2);
+    padding-top: 0.55rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  /* ── Index tabs: navigation as the board's section dividers ───────── */
+  .tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem 0.8rem;
+    font-family: var(--font-sign);
+    font-variation-settings: 'wdth' 74;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-on-board-2);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 150ms ease-out, background-color 150ms ease-out;
+  }
+  .tab:hover { color: var(--color-on-board); background: var(--color-board-raised); }
+  .tab[aria-current='page'] {
+    color: var(--color-on-board);
+    background: var(--color-board-raised);
+  }
+  /* the cut edge that marks the live tab */
+  .tab[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 2px;
+    background: var(--color-vermillion);
+  }
+  .tab-floor {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.62rem;
+    opacity: 0.55;
+  }
+
+  /* The elevator lantern's floor marks. Same step as .tab-floor; colour and
+     state are set by the component so it can mark the live floor. */
+  .floor-mark {
+    font-family: var(--font-sign);
+    font-variation-settings: 'wdth' 70;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 0.15rem 0.25rem;
+    transition: color 150ms ease-out;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 4rem);
+  }
+
+  .prose-body { max-width: 68ch; }
+  .prose-body + .prose-body { margin-top: 1.15rem; }
+}
+
+@layer utilities {
+  /* The one authored motion moment: the board sets itself, like letters
+     pushed into a changeable-letter board, once. Content is visible by
+     default — this only offsets it. */
+  @keyframes set-row {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .set-in {
+    animation: set-row 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
