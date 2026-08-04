@@ -50,7 +50,7 @@ export default function EnquiryForm({
         <h2 className="incised sign-lg text-xl">{heading}</h2>
         <p className="prose-body mt-4 text-on-board-2">
           No enquiry address has been published yet. Once ACC-U30 confirms one, this form will
-          send to it — until then we would rather not collect messages we cannot deliver.
+          send to it.
         </p>
         <p className="sign mt-6 text-on-board-2">Address pending</p>
       </section>

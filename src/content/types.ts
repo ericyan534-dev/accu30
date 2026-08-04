@@ -179,13 +179,24 @@ export interface SiteCopy {
     /** Why this venture gets its own room. */
     readonly kicker: string
     readonly tagline: string
-    readonly taglineNote: string
-    readonly mascotHeading: string
-    readonly mascotStandfirst: string
-    readonly mascotNote: string
     readonly mascots: readonly Mascot[]
+    /** One bird per section of the venture, in section order. The bird opens
+     *  the chapter; `place` varies where it sits so six openers do not read
+     *  as six copies of one template. */
+    readonly chapters: readonly {
+      readonly code: string
+      readonly place: 'right' | 'left' | 'lead'
+      /** A second bird standing in the margin beside the running text. Absent
+       *  on some chapters on purpose — a page where every chapter carries one
+       *  stops pacing and starts wallpapering. */
+      readonly margin?: { readonly code: string; readonly side: 'right' | 'left' }
+    }[]
     readonly productHeading: string
     readonly productNote: string
+    readonly aviaryHeading: string
+    readonly aviaryNote: string
+    /** The birds shown at the close, beyond the six that open chapters. */
+    readonly aviary: readonly string[]
     readonly siteLabel: string
     readonly siteUrl: string
   }

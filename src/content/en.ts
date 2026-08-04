@@ -115,11 +115,10 @@ export const en: SiteCopy = {
 
   home: {
     directoryHeading: 'What is inside',
-    directoryNote: 'Every section of this organisation, indexed.',
+    directoryNote: '',
     claimHeading: 'Most networks convene people. We are putting up a building.',
     claimBody: [
       'ACC-U30 is a nonprofit that incubates ventures started by its members and is developing a community building in New York City — programmed for culture, education, wellness, business and public service across generations.',
-      'Four ventures are operating today. The building is in development. What follows is the organisation, floor by floor.',
     ],
   },
 
@@ -170,8 +169,7 @@ export const en: SiteCopy = {
 
   ventures: {
     title: 'Ventures',
-    standfirst:
-      'Four ventures started by members and incubated by ACC-U30. Each is described in its own terms — the sections below differ because the ventures do.',
+    standfirst: 'Four ventures started by members and incubated by ACC-U30.',
     items: [
       {
         slug: 'encountra',
@@ -464,8 +462,7 @@ export const en: SiteCopy = {
     standfirst:
       'ACC-U30 was founded by four people, who hold its offices and run it today. Nine others work alongside them.',
     officersHeading: 'The four officers',
-    officersNote:
-      'The founders of ACC-U30. Each holds a named office and is accountable for it.',
+    officersNote: '',
     officers: [
       {
         name: 'Lincoln Zhu',
@@ -493,8 +490,7 @@ export const en: SiteCopy = {
       },
     ],
     membersHeading: 'Operations and technology',
-    membersNote:
-      'The people who run the organisation day to day and build what it ships.',
+    membersNote: '',
     members: [
       { name: 'Taocheng Huang', role: 'Operations', bio: '', portrait: taochengHuang },
       { name: 'Edward L', role: 'Junior Associate', bio: '', portrait: edwardL },
@@ -503,19 +499,31 @@ export const en: SiteCopy = {
       { name: 'Ron Dai', role: 'Technology', bio: '', portrait: null },
       { name: 'Jack Yu', role: 'Technology', bio: '', portrait: null },
     ],
-    pendingNote:
-      'Portraits arrive as people supply them. A missing one is left as a marked plate rather than filled with a stand-in.',
+    pendingNote: '',
   },
 
   ringing: {
     kicker: 'Priority venture',
     tagline: 'The new era of global career intelligence starts here.',
-    taglineNote: 'Ring-ing’s own line, from its brand banner.',
-    mascotHeading: 'Sixteen birds',
-    mascotStandfirst:
-      'Ring-ing’s profiling assigns each user one of sixteen finance-career archetypes — its FBTI. Every archetype is the same bird, drawn into a different working life.',
-    mascotNote:
-      'Artwork and accent colours belong to Ring-ing and are reproduced as the venture uses them, not adapted to this site’s palette.',
+    productHeading: 'The workspace, as it ships',
+    productNote:
+      'The interface is in Chinese. Ring-ing is built first for international students recruiting into finance.',
+    aviaryHeading: 'Sixteen archetypes',
+    aviaryNote:
+      'Ring-ing profiles every user against one of sixteen finance-career archetypes — its FBTI. Six of them open the sections above.',
+    siteLabel: 'ringingcareer.com',
+    siteUrl: 'https://ringingcareer.com',
+    // One bird per section, in section order, placed so no two openers
+    // compose the same way.
+    chapters: [
+      { code: 'ENTJ', place: 'right' },
+      { code: 'INTJ', place: 'left', margin: { code: 'ENTP', side: 'right' } },
+      { code: 'INTP', place: 'lead', margin: { code: 'ISTP', side: 'left' } },
+      { code: 'ENFJ', place: 'right' },
+      { code: 'ENFP', place: 'left', margin: { code: 'INFP', side: 'right' } },
+      { code: 'ESFJ', place: 'right', margin: { code: 'ESFP', side: 'left' } },
+    ],
+    aviary: ['ISFJ', 'ESTP', 'ISTJ', 'INFJ'],
     mascots: [
       { code: 'INTJ', accent: '#2f87b9', art: intj },
       { code: 'ENTJ', accent: '#009ff9', art: entj },
@@ -534,11 +542,6 @@ export const en: SiteCopy = {
       { code: 'ISFP', accent: '#b9146b', art: isfp },
       { code: 'ESFP', accent: '#de7862', art: esfp },
     ],
-    productHeading: 'The workspace, as it ships',
-    productNote:
-      'ringingcareer.com, captured August 2026. The interface is in Chinese; the platform is built first for international students recruiting into finance.',
-    siteLabel: 'ringingcareer.com',
-    siteUrl: 'https://ringingcareer.com',
   },
 
   news: {
@@ -546,7 +549,7 @@ export const en: SiteCopy = {
     standfirst: 'Programmes, gatherings, and announcements from ACC-U30.',
     emptyHeading: 'Nothing published here yet',
     emptyBody:
-      'ACC-U30 has held programmes and gatherings, and records of them will be published here as they are prepared. This page will not carry placeholder entries.',
+      'ACC-U30 has held programmes and gatherings, and records of them will be published here as they are prepared.',
   },
 
   partners: {
@@ -555,7 +558,7 @@ export const en: SiteCopy = {
       'The institutions and individuals who support this work. Recognition here is a record of real contribution.',
     emptyHeading: 'Nothing published here yet',
     emptyBody:
-      'ACC-U30 works with partners and supporters, and they will be named here once their consent to be listed has been confirmed. We do not list logos we have not been given permission to display.',
+      'ACC-U30 works with partners and supporters, and they will be named here once their consent to be listed has been confirmed.',
   },
 
   membership: {
@@ -730,7 +733,7 @@ export const en: SiteCopy = {
 
   notFound: {
     title: 'Not on the board',
-    body: 'There is no floor at that number. The directory below lists everything this organisation contains.',
+    body: 'There is no floor at that number.',
     action: 'Back to the lobby',
   },
 }

@@ -11,14 +11,16 @@
   :root {
     --ink: #14181a;
     --ink-2: #3e4649;
-    --rule: #8d9694;
+    --rule: #000000;
+    --wrule: #8d9694;
     --vermillion: #c4282d;
+    --shade: #e8eae9;
     --paper: #ffffff;
-    --font-sign: 'Archivo', system-ui, sans-serif;
+    --font-sign: 'Archivo', Arial, system-ui, sans-serif;
     --font-prose: 'Source Serif 4', Georgia, serif;
   }
 
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; border-radius: 0 !important; }
 
   html, body {
     margin: 0;
@@ -29,401 +31,353 @@
 
   body {
     font-family: var(--font-prose);
-    font-size: 8.6pt;
-    line-height: 1.4;
+    font-size: 8pt;
+    line-height: 1.3;
     -webkit-font-smoothing: antialiased;
   }
 
   @page {
     size: A4;
-    margin: 16mm 15mm;
+    margin: 12mm;
   }
 
-  /* ---- signage type: uppercase, tight width, letterspaced ---- */
   .sign {
     font-family: var(--font-sign);
-    font-stretch: 82%;
+    font-stretch: 85%;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     font-weight: 700;
     line-height: 1;
   }
 
   .page {
-    width: 180mm;
-    min-height: 261mm;
-    margin: 8mm auto;
+    width: 186mm;
+    margin: 0 auto;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--paper);
+    display: block;
   }
 
   .page.p1 { break-after: page; page-break-after: always; }
   .page.p2 { break-after: auto; page-break-after: auto; }
 
-  /* ================= MASTHEAD ================= */
-  .masthead { margin-bottom: 1.4mm; }
+  table { border-collapse: collapse; width: 100%; table-layout: fixed; }
 
-  .top-rule {
-    height: 0.9mm;
-    background: var(--vermillion);
-    margin-bottom: 1.3mm;
+  /* ================= HEADER GRID ================= */
+  .header-grid td {
+    border: 0.35mm solid var(--rule);
+    padding: 1.4mm 2.4mm;
+    vertical-align: top;
   }
 
-  .org-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
+  .header-grid .org-cell { width: 68%; }
+  .header-grid .meta-cell { width: 32%; text-align: right; }
 
   .org-name {
-    font-size: 13.5pt;
-    letter-spacing: 0.03em;
+    font-family: var(--font-sign);
+    font-stretch: 85%;
+    font-weight: 800;
+    font-size: 13pt;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.05;
   }
 
   .org-sub {
     font-family: var(--font-prose);
     font-style: italic;
     font-size: 7.4pt;
-    line-height: 1.1;
     color: var(--ink-2);
-    margin-top: 0.6mm;
+    margin-top: 1mm;
   }
 
-  .title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-top: 1.4mm;
-    padding-top: 1mm;
-    border-top: 0.35mm solid var(--rule);
+  .meta-label {
+    font-family: var(--font-sign);
+    font-stretch: 85%;
+    font-size: 5.4pt;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    line-height: 1;
+  }
+
+  .meta-value {
+    font-family: var(--font-sign);
+    font-stretch: 85%;
+    font-size: 8pt;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin-top: 0.5mm;
+    white-space: nowrap;
+  }
+
+  .header-grid .title-cell {
+    text-align: left;
+    padding-top: 2.2mm;
+    padding-bottom: 2.2mm;
   }
 
   .form-title {
-    font-size: 10.5pt;
-    letter-spacing: 0.04em;
-  }
-
-  .form-ref {
     font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 6.6pt;
-    line-height: 1;
-    letter-spacing: 0.06em;
-    color: var(--ink-2);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .instruction {
-    font-family: var(--font-prose);
-    font-size: 7.9pt;
-    line-height: 1.24;
-    color: var(--ink);
-    margin-top: 1.3mm;
-  }
-
-  .eligibility {
-    font-family: var(--font-prose);
-    font-style: italic;
-    font-size: 7pt;
-    line-height: 1.1;
-    color: var(--ink-2);
-    margin-top: 0.7mm;
-  }
-
-  .masthead-rule {
-    height: 0.35mm;
-    background: var(--rule);
-    margin-top: 1.4mm;
-  }
-
-  /* ================= CONTINUATION HEADER (page 2) ================= */
-  .continuation-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-bottom: 1.6mm;
-    border-bottom: 0.35mm solid var(--rule);
-    margin-bottom: 1.6mm;
-  }
-
-  .continuation-header .cont-org {
-    font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 6.6pt;
-    line-height: 1;
-    font-weight: 600;
-    letter-spacing: 0.07em;
+    font-stretch: 85%;
+    font-weight: 800;
+    font-size: 16.5pt;
+    letter-spacing: 0.015em;
     text-transform: uppercase;
-    color: var(--ink-2);
   }
 
-  .continuation-header .cont-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
+  .accent-rule {
+    height: 0.8mm;
+    background: var(--vermillion);
   }
 
-  .continuation-header .cont-title {
+  /* ================= INSTRUCTIONS ================= */
+  .instructions-box {
+    border: 0.35mm solid var(--rule);
+    border-top: none;
+    padding: 1.7mm 2.6mm 1.6mm;
+  }
+
+  .instructions-label {
     font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-weight: 700;
-    font-size: 8.5pt;
-    line-height: 1.15;
-    letter-spacing: 0.04em;
+    font-stretch: 85%;
+    font-weight: 800;
+    font-size: 6.4pt;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin-bottom: 0.8mm;
+  }
+
+  .instructions-text {
+    font-family: var(--font-prose);
+    font-size: 7.7pt;
+    line-height: 1.32;
+    margin: 0;
     color: var(--ink);
   }
 
-  .continuation-header .cont-ref {
-    font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 6.6pt;
-    line-height: 1;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-2);
-    margin-top: 0.6mm;
-  }
-
-  /* ================= SECTIONS ================= */
-  .form-section {
-    margin-top: 2mm;
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  .section-heading {
+  /* ================= SECTION BAND ================= */
+  .section-band {
+    background: var(--ink);
+    color: #fff;
     display: flex;
     align-items: baseline;
-    gap: 2.2mm;
-    margin: 0 0 1.3mm;
-    padding-bottom: 0.7mm;
-    border-bottom: 0.35mm solid var(--ink);
+    gap: 2.6mm;
+    padding: 1.2mm 2.6mm;
+    margin-top: 2.6mm;
   }
 
-  .section-letter {
+  .section-band .num {
     font-family: var(--font-sign);
-    font-stretch: 82%;
+    font-stretch: 85%;
     font-weight: 800;
-    font-size: 10.8pt;
+    font-size: 10.5pt;
     line-height: 1;
-    color: var(--vermillion);
-    letter-spacing: 0.02em;
   }
 
-  .section-title {
-    font-size: 9pt;
-    line-height: 1;
-    letter-spacing: 0.05em;
-  }
-
-  /* ---- single-line field rows ---- */
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 7mm;
-    margin-bottom: 1.1mm;
-  }
-
-  .field-row.full { grid-template-columns: 1fr; }
-
-  .field { min-width: 0; }
-
-  .field label {
-    display: block;
+  .section-band .title {
     font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 6.4pt;
-    line-height: 1.1;
+    font-stretch: 85%;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    font-size: 8.6pt;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--ink-2);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1;
   }
 
-  .field .note {
+  /* ================= GRID CELLS (fields) ================= */
+  table.grid td.cell {
+    border: 0.35mm solid var(--rule);
+    border-top: none;
+    padding: 1.3mm 2.4mm 1.4mm;
+    vertical-align: top;
+    height: 12.4mm;
+  }
+
+  table.grid tr:first-child td.cell { border-top: none; }
+
+  .cell-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .cell .head {
+    display: flex;
+    align-items: baseline;
+    gap: 1.3mm;
+  }
+
+  .cell .head .n {
+    font-family: var(--font-sign);
+    font-stretch: 85%;
+    font-weight: 800;
+    font-size: 7.4pt;
+    line-height: 1;
+  }
+
+  .cell .head .l {
+    font-family: var(--font-sign);
+    font-stretch: 85%;
+    font-weight: 700;
+    font-size: 6.7pt;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.15;
+  }
+
+  .cell .note {
     font-family: var(--font-prose);
     font-style: italic;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 6.6pt;
+    font-size: 6.3pt;
     color: var(--ink-2);
+    margin-top: 0.5mm;
+    line-height: 1.15;
   }
 
-  .field .rule {
-    height: 3.2mm;
-    border-bottom: 0.4mm solid var(--rule);
+  .cell .writeline {
+    margin-top: auto;
+    border-bottom: 0.35mm solid var(--wrule);
   }
 
-  /* ---- checkbox grid ---- */
-  .checkbox-grid {
+  /* ---- checkbox grid (Q10) ---- */
+  .check-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 8mm;
-    row-gap: 1.1mm;
-    margin: 0.7mm 0 3mm;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.8mm 2.6mm;
+    margin-top: 2mm;
   }
 
-  .checkbox-option {
+  .check-opt {
     display: flex;
     align-items: center;
-    gap: 2.2mm;
-    line-height: 1;
+    gap: 1.5mm;
   }
 
-  .checkbox-option .box {
+  .check-opt .box {
     flex: 0 0 auto;
-    width: 2.8mm;
-    height: 2.8mm;
-    border: 0.35mm solid var(--ink-2);
+    width: 2.6mm;
+    height: 2.6mm;
+    border: 0.35mm solid var(--ink);
   }
 
-  .checkbox-option .opt-label {
+  .check-opt .lbl {
     font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 7.2pt;
-    line-height: 1;
+    font-stretch: 85%;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: 6.9pt;
+    letter-spacing: 0.015em;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .checkbox-option.other .mini-rule {
+  .check-opt.other { grid-column: span 1; }
+  .check-opt.other .fill {
     flex: 1 1 auto;
-    height: 2.8mm;
-    border-bottom: 0.4mm solid var(--rule);
+    height: 2.6mm;
+    border-bottom: 0.35mm solid var(--wrule);
+    min-width: 4mm;
   }
 
-  /* ---- multi-line ruled writing blocks ---- */
-  .q-label {
-    font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 7.1pt;
-    line-height: 1.15;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    margin-bottom: 0.3mm;
-  }
+  /* ---- essay / ruled writing blocks ---- */
+  td.cell.essay { height: auto; }
 
-  .q-note {
-    font-family: var(--font-prose);
-    font-style: italic;
-    font-size: 6.9pt;
-    line-height: 1.1;
-    color: var(--ink-2);
-    margin-bottom: 0.6mm;
-  }
+  .ruled-lines { margin-top: 1.6mm; }
 
-  .ruled-lines { margin-bottom: 2.4mm; }
-
-  .ruled-lines .line {
+  .ruled-lines .rline {
     height: 9mm;
-    border-bottom: 0.4mm solid var(--rule);
+    border-bottom: 0.35mm solid var(--wrule);
   }
+  .ruled-lines .rline:last-child { border-bottom: none; }
 
-  /* ================= DECLARATION / PAGE 2 ================= */
+  /* ================= DECLARATION ================= */
+  .declaration-block { padding: 2.6mm 0 0; }
+
   .declaration-text {
     font-family: var(--font-prose);
-    font-size: 9pt;
-    line-height: 1.62;
+    font-size: 8.4pt;
+    line-height: 1.48;
+    margin: 0;
   }
 
-  .signature-block {
-    display: grid;
-    grid-template-columns: 2.1fr 1.4fr 0.9fr;
-    gap: 0 9mm;
-    margin-top: 12mm;
+  table.grid.signature td.cell { height: 19mm; }
+
+  /* ================= OFFICIAL USE ================= */
+  .official-use {
+    margin-top: 4.4mm;
+    border: 0.35mm solid var(--rule);
+    border-top: 0.9mm solid var(--rule);
+    background: var(--shade);
   }
 
-  .sig-field { display: flex; flex-direction: column; }
-
-  .sig-field .rule {
-    height: 11mm;
-    border-bottom: 0.5mm solid var(--ink-2);
-  }
-
-  .sig-field .cap {
-    margin-top: 1.8mm;
+  .official-use .ou-heading {
     font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 7.2pt;
+    font-stretch: 85%;
+    font-weight: 800;
+    font-size: 7.4pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2mm 2.6mm 1.4mm;
+  }
+
+  .official-use table.grid td.cell {
+    background: var(--shade);
+    height: 15mm;
+    border-top: 0.35mm solid var(--rule);
+  }
+
+  /* ================= CONTINUATION BAND (page 2) ================= */
+  .continuation-band {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 0.35mm solid var(--rule);
+    border-bottom: 0.35mm solid var(--rule);
+    padding: 1.6mm 0.2mm;
+    margin-bottom: 0;
+  }
+
+  .continuation-band .cb-left,
+  .continuation-band .cb-right {
+    font-family: var(--font-sign);
+    font-stretch: 85%;
     font-weight: 700;
+    font-size: 6.8pt;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--ink-2);
   }
 
-  .spacer { flex: 1 1 auto; }
-
-  /* ---- for office use only ---- */
-  .office-use {
-    border: 0.4mm solid var(--ink-2);
-    padding: 4mm 5mm 4.6mm;
-    margin-top: 6mm;
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  .office-use .office-heading {
-    font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 7.6pt;
-    font-weight: 800;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    margin-bottom: 3mm;
-  }
-
-  .office-fields {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0 5mm;
-  }
-
-  .office-fields .field label {
-    font-size: 6.2pt;
-    white-space: normal;
-  }
-
-  .office-fields .field .rule { height: 6mm; }
+  .continuation-band .cb-right { color: var(--ink); font-weight: 800; }
 
   /* ================= FOOTER ================= */
   .page-footer {
-    margin-top: auto;
-    padding-top: 2.2mm;
-    border-top: 0.35mm solid var(--rule);
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: baseline;
+    border-top: 0.4mm solid var(--rule);
+    margin-top: 2.4mm;
+    padding-top: 1.2mm;
     font-family: var(--font-sign);
-    font-stretch: 82%;
-    font-size: 6.6pt;
-    line-height: 1;
-    font-weight: 600;
-    letter-spacing: 0.07em;
+    font-stretch: 85%;
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink-2);
   }
 
+  .page-footer .fc { text-align: center; }
+  .page-footer .fr { text-align: right; }
+
   @media screen {
-    body { background: #d8dad9; padding: 6mm 0; }
-    .page { border: 0.4mm solid #c7cac9; }
+    body { background: #d8dad9; padding: 10mm 0; }
+    .page { background: var(--paper); padding: 12mm; border: 0.4mm solid #c7cac9; margin-bottom: 10mm; }
   }
 
   @media print {
     body { background: var(--paper); padding: 0; }
-    .page { margin: 0 auto; border: none; }
+    .page { margin: 0 auto; border: none; padding: 0; }
   }
 </style>
 </head>
@@ -431,240 +385,310 @@
 
   <!-- ============ PAGE 1 ============ -->
   <main class="page p1">
-    <header class="masthead">
-      <div class="top-rule"></div>
-      <div class="org-line">
-        <span class="sign org-name">Asian Community Center &middot; Under 30</span>
-      </div>
-      <div class="org-sub">New York City &middot; Nonprofit</div>
 
-      <div class="title-row">
-        <span class="sign form-title">Membership Application</span>
-        <span class="form-ref">FORM ACC-U30 / M-1</span>
-      </div>
+    <table class="header-grid">
+      <tr>
+        <td class="org-cell" rowspan="3">
+          <div class="org-name">Asian Community Center &middot; Under 30</div>
+          <div class="org-sub">New York City &middot; Nonprofit</div>
+        </td>
+        <td class="meta-cell">
+          <div class="meta-label">Form No.</div>
+          <div class="meta-value">ACC-U30 / M-1</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="meta-cell">
+          <div class="meta-label">Edition</div>
+          <div class="meta-value">08/2026</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="meta-cell">
+          <div class="meta-label">Pages</div>
+          <div class="meta-value">2</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="title-cell" colspan="2">
+          <span class="form-title">Membership Application</span>
+        </td>
+      </tr>
+    </table>
 
-      <p class="instruction">Complete every section. Applications are reviewed by the ACC-U30 board. Submit the completed form, together with any supporting links, to the address published on the ACC-U30 contact page.</p>
-      <p class="eligibility">Applicants must be under 30 years of age on the date of application.</p>
-      <div class="masthead-rule"></div>
-    </header>
+    <div class="accent-rule"></div>
+
+    <div class="instructions-box">
+      <div class="instructions-label sign">Instructions</div>
+      <p class="instructions-text">Complete every section. Applications are reviewed by the ACC-U30 board. Submit the completed form, together with any supporting links, to the address published on the ACC-U30 contact page. Applicants must be under thirty years of age on the date of application.</p>
+    </div>
 
     <!-- ---- SECTION A ---- -->
-    <section class="form-section">
-      <h2 class="section-heading">
-        <span class="section-letter sign">A</span>
-        <span class="section-title sign">Applicant</span>
-      </h2>
-
-      <div class="field-row full">
-        <div class="field">
-          <label>1. Full legal name</label>
-          <div class="rule"></div>
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label>2. Preferred name</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>3. Date of birth <span class="note">&mdash; must be under 30 on the date of application</span></label>
-          <div class="rule"></div>
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label>4. Email address</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>5. Telephone</label>
-          <div class="rule"></div>
-        </div>
-      </div>
-
-      <div class="field-row">
-        <div class="field">
-          <label>6. City and country of residence</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>7. Nationality or citizenship <span class="note">&mdash; optional</span></label>
-          <div class="rule"></div>
-        </div>
-      </div>
-    </section>
+    <div class="section-band">
+      <span class="num sign">A</span>
+      <span class="title sign">Applicant</span>
+    </div>
+    <table class="grid">
+      <colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+      <tr>
+        <td class="cell" colspan="2">
+          <div class="cell-inner">
+            <div class="head"><span class="n">1</span><span class="l">Full legal name</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">2</span><span class="l">Preferred name</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">3</span><span class="l">Date of birth</span></div>
+            <div class="note">Must be under 30 on the date of application.</div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">4</span><span class="l">Email address</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">5</span><span class="l">Telephone</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">6</span><span class="l">City and country of residence</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">7</span><span class="l">Nationality or citizenship</span></div>
+            <div class="note">Optional.</div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
     <!-- ---- SECTION B ---- -->
-    <section class="form-section">
-      <h2 class="section-heading">
-        <span class="section-letter sign">B</span>
-        <span class="section-title sign">Education and occupation</span>
-      </h2>
+    <div class="section-band">
+      <span class="num sign">B</span>
+      <span class="title sign">Education and occupation</span>
+    </div>
+    <table class="grid">
+      <colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+      <tr>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">8</span><span class="l">Institution or employer</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">9</span><span class="l">Programme of study or role</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="cell" colspan="2" style="height:auto;">
+          <div class="head"><span class="n">10</span><span class="l">Primary field</span></div>
+          <div class="check-grid">
+            <div class="check-opt"><span class="box"></span><span class="lbl">Finance</span></div>
+            <div class="check-opt"><span class="box"></span><span class="lbl">Technology</span></div>
+            <div class="check-opt"><span class="box"></span><span class="lbl">Entrepreneurship</span></div>
+            <div class="check-opt"><span class="box"></span><span class="lbl">Public affairs</span></div>
+            <div class="check-opt"><span class="box"></span><span class="lbl">Media</span></div>
+            <div class="check-opt"><span class="box"></span><span class="lbl">Education</span></div>
+            <div class="check-opt"><span class="box"></span><span class="lbl">Arts</span></div>
+            <div class="check-opt other"><span class="box"></span><span class="lbl">Other</span><span class="fill"></span></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="cell" colspan="2">
+          <div class="cell-inner">
+            <div class="head"><span class="n">11</span><span class="l">Expected graduation, or years in role</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
-      <div class="field-row">
-        <div class="field">
-          <label>8. Institution or employer</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>9. Programme of study or role</label>
-          <div class="rule"></div>
-        </div>
-      </div>
-
-      <div class="q-label sign">10. Primary field</div>
-      <div class="checkbox-grid">
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Finance</span></div>
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Technology</span></div>
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Entrepreneurship</span></div>
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Public affairs</span></div>
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Media</span></div>
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Education</span></div>
-        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Arts</span></div>
-        <div class="checkbox-option other"><span class="box"></span><span class="opt-label">Other</span><span class="mini-rule"></span></div>
-      </div>
-
-      <div class="field-row full">
-        <div class="field">
-          <label>11. Expected graduation, or years in role</label>
-          <div class="rule"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ---- SECTION C (part 1: Q12 only) ---- -->
-    <section class="form-section">
-      <h2 class="section-heading">
-        <span class="section-letter sign">C</span>
-        <span class="section-title sign">Contribution</span>
-      </h2>
-
-      <div class="q-label sign">12. What have you built, led, or shipped?</div>
-      <div class="q-note">200 words maximum.</div>
-      <div class="ruled-lines">
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-        <div class="line"></div><div class="line"></div>
-      </div>
-    </section>
+    <!-- ---- SECTION C (part 1: Q12) ---- -->
+    <div class="section-band">
+      <span class="num sign">C</span>
+      <span class="title sign">Contribution</span>
+    </div>
+    <table class="grid">
+      <tr>
+        <td class="cell essay">
+          <div class="head"><span class="n">12</span><span class="l">What have you built, led, or shipped?</span></div>
+          <div class="note">200 words maximum.</div>
+          <div class="ruled-lines">
+            <div class="rline"></div><div class="rline"></div><div class="rline"></div>
+            <div class="rline"></div><div class="rline"></div><div class="rline"></div>
+            <div class="rline"></div><div class="rline"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
     <footer class="page-footer">
       <span>Asian Community Center &middot; Under 30</span>
-      <span>Page 1 of 2</span>
+      <span class="fc">Form ACC-U30 / M-1</span>
+      <span class="fr">Page 1 of 2</span>
     </footer>
   </main>
 
   <!-- ============ PAGE 2 ============ -->
   <main class="page p2">
-    <div class="continuation-header">
-      <span class="cont-org">Asian Community Center &middot; Under 30</span>
-      <span class="cont-right">
-        <span class="cont-title">Membership Application &middot; Continued</span>
-        <span class="cont-ref">FORM ACC-U30 / M-1</span>
-      </span>
+
+    <div class="continuation-band">
+      <span class="cb-left sign">Form ACC-U30 / M-1</span>
+      <span class="cb-right sign">Membership Application &mdash; Continued &middot; Section C &mdash; Contribution</span>
     </div>
 
     <!-- ---- SECTION C (part 2: Q13, Q14) ---- -->
-    <!-- The heading repeats, marked "continued", so a reader who picks up
-         page 2 on its own still knows which section they are in. -->
-    <section class="form-section" style="margin-top: 0;">
-      <h2 class="section-heading">
-        <span class="section-letter sign">C</span>
-        <span class="section-title sign">Contribution &middot; continued</span>
-      </h2>
-
-      <div class="q-label sign">13. Which part of ACC-U30&rsquo;s work do you expect to contribute to, and how?</div>
-      <div class="q-note">150 words maximum.</div>
-      <div class="ruled-lines">
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-      </div>
-
-      <div class="q-label sign">14. Links &mdash; portfolio, publication, company, or profile</div>
-      <div class="ruled-lines">
-        <div class="line"></div><div class="line"></div><div class="line"></div>
-      </div>
-    </section>
+    <table class="grid">
+      <tr>
+        <td class="cell essay">
+          <div class="head"><span class="n">13</span><span class="l">Which part of ACC-U30&rsquo;s work do you expect to contribute to, and how?</span></div>
+          <div class="note">150 words maximum.</div>
+          <div class="ruled-lines">
+            <div class="rline"></div><div class="rline"></div><div class="rline"></div>
+            <div class="rline"></div><div class="rline"></div><div class="rline"></div>
+            <div class="rline"></div><div class="rline"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="cell essay">
+          <div class="head"><span class="n">14</span><span class="l">Links &mdash; portfolio, publication, company, or profile</span></div>
+          <div class="ruled-lines">
+            <div class="rline"></div><div class="rline"></div><div class="rline"></div><div class="rline"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
     <!-- ---- SECTION D ---- -->
-    <section class="form-section">
-      <h2 class="section-heading">
-        <span class="section-letter sign">D</span>
-        <span class="section-title sign">Referral</span>
-      </h2>
-
-      <div class="field-row">
-        <div class="field">
-          <label>15. Referred or nominated by <span class="note">&mdash; name and relationship, optional</span></label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>16. How did you first hear about ACC-U30?</label>
-          <div class="rule"></div>
-        </div>
-      </div>
-    </section>
+    <div class="section-band">
+      <span class="num sign">D</span>
+      <span class="title sign">Referral</span>
+    </div>
+    <table class="grid">
+      <colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+      <tr>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">15</span><span class="l">Referred or nominated by</span></div>
+            <div class="note">Name and relationship. Optional.</div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">16</span><span class="l">How did you first hear about ACC-U30?</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
     <!-- ---- SECTION E ---- -->
-    <section class="form-section">
-      <h2 class="section-heading">
-        <span class="section-letter sign">E</span>
-        <span class="section-title sign">Declaration</span>
-      </h2>
+    <div class="section-band">
+      <span class="num sign">E</span>
+      <span class="title sign">Declaration</span>
+    </div>
 
+    <div class="declaration-block">
       <p class="declaration-text">I confirm that the information given in this application is accurate and complete to the best of my knowledge. I consent to ACC-U30 processing this information for the purpose of reviewing my application. I understand that membership is granted at the discretion of the board, and I agree to uphold the standards of conduct expected of members.</p>
+    </div>
 
-      <div class="signature-block">
-        <div class="sig-field">
-          <div class="rule"></div>
-          <div class="cap">Signature</div>
-        </div>
-        <div class="sig-field">
-          <div class="rule"></div>
-          <div class="cap">Print name</div>
-        </div>
-        <div class="sig-field">
-          <div class="rule"></div>
-          <div class="cap">Date</div>
-        </div>
-      </div>
-    </section>
+    <table class="grid signature">
+      <colgroup><col style="width:45%"><col style="width:32%"><col style="width:23%"></colgroup>
+      <tr>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">17</span><span class="l">Signature</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">18</span><span class="l">Print name</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+        <td class="cell">
+          <div class="cell-inner">
+            <div class="head"><span class="n">19</span><span class="l">Date</span></div>
+            <div class="writeline"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
-    <div class="spacer"></div>
-
-    <section class="office-use">
-      <div class="office-heading sign">For office use only</div>
-      <div class="office-fields">
-        <div class="field">
-          <label>Date received</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>Reference no.</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>Reviewed by</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>Board decision</label>
-          <div class="rule"></div>
-        </div>
-        <div class="field">
-          <label>Date of decision</label>
-          <div class="rule"></div>
-        </div>
-      </div>
+    <!-- ---- FOR OFFICIAL USE ONLY ---- -->
+    <section class="official-use">
+      <div class="ou-heading sign">For official use only</div>
+      <table class="grid">
+        <colgroup><col style="width:20%"><col style="width:20%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
+        <tr>
+          <td class="cell">
+            <div class="cell-inner">
+              <div class="head"><span class="l">Date received</span></div>
+              <div class="writeline"></div>
+            </div>
+          </td>
+          <td class="cell">
+            <div class="cell-inner">
+              <div class="head"><span class="l">Reference no.</span></div>
+              <div class="writeline"></div>
+            </div>
+          </td>
+          <td class="cell">
+            <div class="cell-inner">
+              <div class="head"><span class="l">Reviewed by</span></div>
+              <div class="writeline"></div>
+            </div>
+          </td>
+          <td class="cell">
+            <div class="cell-inner">
+              <div class="head"><span class="l">Board decision</span></div>
+              <div class="writeline"></div>
+            </div>
+          </td>
+          <td class="cell">
+            <div class="cell-inner">
+              <div class="head"><span class="l">Date of decision</span></div>
+              <div class="writeline"></div>
+            </div>
+          </td>
+        </tr>
+      </table>
     </section>
 
     <footer class="page-footer">
       <span>Asian Community Center &middot; Under 30</span>
-      <span>Page 2 of 2</span>
+      <span class="fc">Form ACC-U30 / M-1</span>
+      <span class="fr">Page 2 of 2</span>
     </footer>
   </main>
 

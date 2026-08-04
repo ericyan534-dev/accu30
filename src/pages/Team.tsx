@@ -23,7 +23,9 @@ export default function Team() {
           <h2 id="officers-heading" className="sign-lg text-xl">
             {copy.team.officersHeading}
           </h2>
-          <p className="prose-small text-ink-3">{copy.team.officersNote}</p>
+          {copy.team.officersNote && (
+            <p className="prose-small text-ink-3">{copy.team.officersNote}</p>
+          )}
         </div>
 
         {/* Portrait · office · biography, in three columns across the full
@@ -45,7 +47,7 @@ export default function Team() {
           ))}
         </ul>
 
-        {anyPending && (
+        {anyPending && copy.team.pendingNote && (
           <p className="prose-small mt-8 text-ink-3">{copy.team.pendingNote}</p>
         )}
       </section>
@@ -57,7 +59,9 @@ export default function Team() {
             <h2 id="members-heading" className="sign-lg display-4 text-on-board">
               {copy.team.membersHeading}
             </h2>
-            <p className="sign text-on-board-2">{copy.team.membersNote}</p>
+            {copy.team.membersNote && (
+              <p className="sign text-on-board-2">{copy.team.membersNote}</p>
+            )}
           </div>
 
           <ul className="grid list-none gap-x-10 gap-y-0 p-0 sm:grid-cols-2 lg:grid-cols-3">

@@ -167,7 +167,9 @@ export default function Home() {
             <h2 id="directory-heading" className="sign-lg display-4 text-on-board">
               {copy.home.directoryHeading}
             </h2>
-            <p className="sign text-on-board-2">{copy.home.directoryNote}</p>
+            {copy.home.directoryNote && (
+              <p className="sign text-on-board-2">{copy.home.directoryNote}</p>
+            )}
           </div>
           <Directory />
         </div>

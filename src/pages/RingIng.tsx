@@ -1,5 +1,5 @@
 import { useCopy } from '@/content'
-import type { Venture } from '@/content/types'
+import type { Mascot, Venture } from '@/content/types'
 import wordmarkLight from '@/assets/ringing/wordmark-light.webp'
 import birdHero from '@/assets/ringing/bird-hero.webp'
 import banner from '@/assets/ringing/banner.webp'
@@ -10,24 +10,40 @@ interface RingIngProps {
   readonly venture: Venture
 }
 
-/** Ring-ing does not get the tenant listing. It gets the floor.
- *
- *  Every other venture is read on the stone wall as prose under a directory
- *  designation. This one opens on the board with its own wordmark, its own
- *  line and its own bird, and the sixteen FBTI archetypes are racked as
- *  plates — the one place on this site where another organisation's colour is
- *  allowed to be the loudest thing in the room. It stays inside the world:
- *  same grounds, same signage, zero radius, no shadow, no scroll theatre. */
+/* ══════════════════════════════════════════════════════════════════════
+   DIRECTION CONTRACT — Ring-ing's floor · surface seed 7e0aeb7e
+   Structure pinned by the brief, which beats the roll: the birds are
+   integrated alongside the reading rather than collected in a grid.
+   ──────────────────────────────────────────────────────────────────────
+   THESIS  A venture with sixteen drawn archetypes should not park them in
+           a specimen cabinet. Each one opens a chapter and then gets out
+           of the reader's way. Refuses the gallery grid and the two-column
+           docs page the other four ventures use.
+   OWN-WORLD  ACC stone and board unchanged. Every chapter opens on a dark
+           plate set into the stone wall, carrying a tabular chapter
+           numeral, the section title, one bird at scale, and a 3px rule in
+           that bird's own published accent — the only colour on this site
+           that is not vermillion. Prose always returns to stone.
+   STORY   The reader meets the product, then reads six chapters, each
+           announced by a face. They leave knowing Ring-ing is a real
+           shipping product with a design language of its own.
+   FIRST VIEWPORT  Unchanged and approved: wordmark, cut tagline, summary,
+           two actions, bird bleeding off the right of the board.
+   FORM    Chapter plates with alternating bird placement — right, left,
+           lead, right, left, right — so six openers never compose twice.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/** Ring-ing does not get the tenant listing. It gets the floor. */
 export default function RingIng({ venture }: RingIngProps) {
   const copy = useCopy()
   const ringing = copy.ringing
+  const bird = (code: string): Mascot | undefined =>
+    ringing.mascots.find(m => m.code === code)
 
   return (
     <>
       {/* ── The floor's own masthead ────────────────────────────────────── */}
       <header className="board on-dark relative overflow-hidden">
-        {/* The bird is the venture's artwork, not borrowed reference, so it
-            is not framed — it bleeds off the plate the way signage does. */}
         <img
           src={birdHero}
           alt=""
@@ -36,8 +52,6 @@ export default function RingIng({ venture }: RingIngProps) {
         />
 
         <div className="wrap relative py-14 sm:py-20">
-          {/* The red is in the rule, not the label: vermillion-lit measures
-              4.19:1 on the board and would not clear AA at signage size. */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <p className="sign text-on-board-2">Floor {venture.floor}</p>
             <p className="sign flex items-center gap-2.5 text-on-board">
@@ -46,8 +60,6 @@ export default function RingIng({ venture }: RingIngProps) {
             </p>
           </div>
 
-          {/* The heading's name lives in text, not in the image's alt, so the
-              page still has an H1 if the wordmark fails to load. */}
           <h1 className="mt-7">
             <span className="sr-only">{venture.name}</span>
             <img
@@ -62,76 +74,31 @@ export default function RingIng({ venture }: RingIngProps) {
           <p className="cut incised display-2 mt-8 max-w-[17ch] text-on-board">
             {ringing.tagline}
           </p>
-          <p className="sign mt-4 text-on-board-2">{ringing.taglineNote}</p>
 
-          <p className="prose-body mt-8 max-w-[54ch] text-lg text-on-board-2">
+          <p className="prose-body mt-7 max-w-[54ch] text-lg text-on-board-2">
             {venture.summary}
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a
-              className="action"
-              href={ringing.siteUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <a className="action" href={ringing.siteUrl} target="_blank" rel="noreferrer noopener">
               Visit {ringing.siteLabel} ↗
             </a>
-            <a className="action action-ghost" href="#about">
+            <a className="action action-ghost" href="#chapter-1">
               Read the venture
             </a>
           </div>
         </div>
       </header>
 
-      {/* ── Sixteen birds ──────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-20" aria-labelledby="mascots-heading">
-        <div className="wrap">
-          <div className="max-w-[62ch]">
-            <h2 id="mascots-heading" className="display-2">
-              {ringing.mascotHeading}
-            </h2>
-            <p className="prose-body mt-5 text-lg text-ink-2">{ringing.mascotStandfirst}</p>
-          </div>
-
-          <ul className="mt-10 grid list-none grid-cols-2 gap-4 p-0 sm:grid-cols-3 lg:grid-cols-4">
-            {ringing.mascots.map((mascot, i) => (
-              <li
-                key={mascot.code}
-                className="set-in bg-board-raised"
-                style={{ animationDelay: `${Math.min(i, 15) * 34}ms` }}
-              >
-                <img
-                  src={mascot.art}
-                  alt={`Ring-ing's ${mascot.code} archetype, drawn as the Ring-ing bird`}
-                  className="block w-full"
-                  width={640}
-                  height={640}
-                  loading={i < 4 ? 'eager' : 'lazy'}
-                />
-                <div
-                  aria-hidden="true"
-                  className="h-[3px] w-full"
-                  style={{ background: mascot.accent }}
-                />
-                <p className="sign px-3 py-3 text-on-board">{mascot.code}</p>
-              </li>
-            ))}
-          </ul>
-
-          <p className="prose-small mt-7 text-ink-3">{ringing.mascotNote}</p>
-        </div>
-      </section>
-
-      {/* ── The product, and the venture's own banner ───────────────────── */}
-      <section className="board on-dark py-14 sm:py-20" aria-labelledby="product-heading">
+      {/* ── The product, at the size a screenshot has to be to be read ─── */}
+      <section className="py-14 sm:py-20" aria-labelledby="product-heading">
         <div className="wrap">
           <div className="mb-9 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
-            <h2 id="product-heading" className="sign-lg display-4 text-on-board">
+            <h2 id="product-heading" className="display-2">
               {ringing.productHeading}
             </h2>
             <a
-              className="link-row sign text-on-board-2 hover:text-on-board"
+              className="link-row sign text-ink-2 hover:text-vermillion-ink"
               href={ringing.siteUrl}
               target="_blank"
               rel="noreferrer noopener"
@@ -140,12 +107,9 @@ export default function RingIng({ venture }: RingIngProps) {
             </a>
           </div>
 
-          {/* items-start, and only images of comparable proportion in one
-              row. A plate that stretches to a taller neighbour turns into a
-              mount with nothing mounted on it. */}
-          <div className="grid items-start gap-5 md:grid-cols-2">
+          <div className="grid gap-6">
             <figure className="plate own">
-              <img src={siteHome} alt="The Ring-ing landing page" loading="lazy" />
+              <img src={siteHome} alt="The Ring-ing landing page" width={1600} height={1000} />
               <figcaption>
                 <span>Ring-ing</span>
                 <span>Landing page</span>
@@ -155,6 +119,8 @@ export default function RingIng({ venture }: RingIngProps) {
               <img
                 src={fbtiScreen}
                 alt="The FBTI profile view inside the Ring-ing workspace, showing one of the sixteen birds"
+                width={1600}
+                height={876}
                 loading="lazy"
               />
               <figcaption>
@@ -162,62 +128,207 @@ export default function RingIng({ venture }: RingIngProps) {
                 <span>FBTI profile · the bird in use</span>
               </figcaption>
             </figure>
-            <figure className="plate own md:col-span-2">
-              <img src={banner} alt="The Ring-ing brand banner" loading="lazy" />
-              <figcaption>
-                <span>Ring-ing</span>
-                <span>Brand banner</span>
-              </figcaption>
-            </figure>
           </div>
 
-          <p className="prose-small mt-7 text-on-board-2">{ringing.productNote}</p>
+          <p className="prose-small mt-6 text-ink-3">{ringing.productNote}</p>
         </div>
       </section>
 
-      {/* ── The venture in its own words, section list unchanged ────────── */}
-      <div className="wrap grid gap-10 py-12 sm:py-16 lg:grid-cols-[16rem_1fr] lg:gap-16">
-        <nav aria-label="On this page" className="lg:sticky lg:top-24 lg:self-start">
-          <p className="sign mb-4 text-ink-3">Contents</p>
-          <ol className="list-none p-0">
-            {venture.sections.map((section, i) => (
-              <li key={section.label} className="border-t border-stone-edge">
-                <a
-                  href={`#${slugify(section.label)}`}
-                  className="link-row sign w-full gap-3 text-ink-2 hover:text-vermillion-ink"
-                >
-                  <span className="text-ink-3">{String(i + 1).padStart(2, '0')}</span>
-                  {section.label}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+      {/* ── Six chapters, each announced by a face ──────────────────────── */}
+      {venture.sections.map((section, i) => {
+        const chapter = ringing.chapters[i]
+        const mascot = chapter ? bird(chapter.code) : undefined
+        const margin = chapter?.margin ? bird(chapter.margin.code) : undefined
+        const marginSide = chapter?.margin?.side ?? 'right'
 
-        <div>
-          {venture.sections.map((section, i) => (
-            <section
-              key={section.label}
-              id={i === 0 ? 'about' : slugify(section.label)}
-              className="scroll-mt-24 border-b border-stone-edge py-9 first:pt-0 last:border-b-0"
+        return (
+          <section key={section.label} id={`chapter-${i + 1}`} className="scroll-mt-20">
+            <ChapterPlate
+              number={String(i + 1).padStart(2, '0')}
+              title={section.label}
+              mascot={mascot}
+              place={chapter?.place ?? 'right'}
+            />
+
+            {/* The running text keeps its reading measure; the margin beside
+                it is where a second bird stands, so the reader meets one
+                while reading rather than in a cabinet at the end. */}
+            <div
+              className={`wrap grid items-start gap-x-12 gap-y-10 py-11 sm:py-14 ${
+                margin
+                  ? marginSide === 'left'
+                    ? 'lg:grid-cols-[15rem_1fr]'
+                    : 'lg:grid-cols-[1fr_15rem]'
+                  : ''
+              }`}
             >
-              <h2 className="sign-lg mb-5 text-2xl">{section.label}</h2>
-              {section.body.map((para, j) => (
-                <p key={j} className={`prose-body${j > 0 ? ' mt-4' : ''} text-ink-2`}>
-                  {para}
-                </p>
-              ))}
-            </section>
-          ))}
+              {margin && marginSide === 'left' && <MarginBird mascot={margin} />}
+
+              {/* A chapter with no bird in the margin sets its text in two
+                  columns instead, so the quiet chapters use the full field
+                  rather than stranding a column against a blank half-page. */}
+              <div className={margin ? '' : 'lg:columns-2 lg:gap-14'}>
+                {section.body.map((para, j) => (
+                  <p
+                    key={j}
+                    className={`prose-body${j > 0 ? ' mt-5' : ''} text-lg text-ink-2`}
+                  >
+                    {para}
+                  </p>
+                ))}
+              </div>
+
+              {margin && marginSide === 'right' && <MarginBird mascot={margin} />}
+            </div>
+          </section>
+        )
+      })}
+
+      {/* ── The rest of the aviary, and the venture's own banner ────────── */}
+      <section className="board on-dark py-14 sm:py-20" aria-labelledby="aviary-heading">
+        <div className="wrap">
+          <div className="max-w-[58ch]">
+            <h2 id="aviary-heading" className="sign-lg display-4 text-on-board">
+              {ringing.aviaryHeading}
+            </h2>
+            <p className="prose-body mt-5 text-lg text-on-board-2">{ringing.aviaryNote}</p>
+          </div>
+
+          <ul className="mt-10 grid list-none grid-cols-2 gap-5 p-0 lg:grid-cols-4">
+            {ringing.aviary.map(code => {
+              const m = bird(code)
+              if (!m) return null
+              return (
+                <li key={code}>
+                  <img
+                    src={m.art}
+                    alt={`Ring-ing's ${m.code} archetype`}
+                    className="block w-full"
+                    width={640}
+                    height={640}
+                    loading="lazy"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="h-[3px] w-full"
+                    style={{ background: m.accent }}
+                  />
+                  <p className="sign mt-3 text-on-board">{m.code}</p>
+                </li>
+              )
+            })}
+          </ul>
+
+          <figure className="plate own mt-12">
+            <img src={banner} alt="The Ring-ing brand banner" width={2400} height={710} loading="lazy" />
+            <figcaption>
+              <span>Ring-ing</span>
+              <span>Brand banner</span>
+            </figcaption>
+          </figure>
         </div>
-      </div>
+      </section>
     </>
   )
 }
 
-function slugify(label: string): string {
-  return label
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
+/** A bird standing in the margin beside the running text. Hidden below lg,
+ *  where there is no margin to stand in. */
+function MarginBird({ mascot }: { readonly mascot: Mascot }) {
+  return (
+    <figure className="m-0 hidden lg:sticky lg:top-28 lg:block">
+      <img src={mascot.art} alt="" width={640} height={640} className="block w-full" />
+      <span
+        aria-hidden="true"
+        className="block h-[3px] w-full"
+        style={{ background: mascot.accent }}
+      />
+      <figcaption className="sign mt-3 text-ink-3">FBTI {mascot.code}</figcaption>
+    </figure>
+  )
+}
+
+interface ChapterPlateProps {
+  readonly number: string
+  readonly title: string
+  readonly mascot?: Mascot
+  readonly place: 'right' | 'left' | 'lead'
+}
+
+/** A dark plate set into the stone wall, announcing one chapter.
+ *
+ *  The bird moves — right, left, or leading above the title — so six of
+ *  these down a page never read as six copies of one template. The accent
+ *  rule is the bird's own published colour and is the one place on this
+ *  site where something other than vermillion is allowed to be the colour. */
+function ChapterPlate({ number, title, mascot, place }: ChapterPlateProps) {
+  // Eager: six chapter birds are the page's structure, not decoration below
+  // the fold, and a lazy one leaves a plate with a hole in it.
+  const art = mascot && (
+    <img
+      src={mascot.art}
+      alt=""
+      width={640}
+      height={640}
+      className={
+        place === 'lead'
+          ? 'w-[min(56vw,270px)] shrink-0'
+          : 'w-[min(52vw,300px)] shrink-0 lg:w-[340px]'
+      }
+    />
+  )
+
+  const heading = (
+    <div className="min-w-0 flex-1">
+      <p className="dir-floor text-left text-on-board-2">{number}</p>
+      <h2 className="sign-lg display-3 mt-3 text-on-board">{title}</h2>
+      {mascot && (
+        <div className="mt-6 flex items-center gap-4">
+          <span
+            aria-hidden="true"
+            className="block h-[3px] w-24"
+            style={{ background: mascot.accent }}
+          />
+          <span className="sign text-on-board-2">FBTI {mascot.code}</span>
+        </div>
+      )}
+    </div>
+  )
+
+  if (place === 'lead') {
+    return (
+      <div className="board on-dark">
+        <div className="wrap flex flex-col items-center gap-6 py-12 text-center sm:py-14">
+          {art}
+          <div className="flex flex-col items-center">
+            <p className="dir-floor text-on-board-2">{number}</p>
+            <h2 className="sign-lg display-3 mt-3 max-w-[18ch] text-on-board">{title}</h2>
+            {mascot && (
+              <div className="mt-6 flex items-center gap-4">
+                <span
+                  aria-hidden="true"
+                  className="block h-[3px] w-24"
+                  style={{ background: mascot.accent }}
+                />
+                <span className="sign text-on-board-2">FBTI {mascot.code}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="board on-dark">
+      <div
+        className={`wrap flex flex-col gap-8 py-12 sm:py-14 md:items-center md:gap-12 ${
+          place === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'
+        }`}
+      >
+        {art}
+        {heading}
+      </div>
+    </div>
+  )
 }
