@@ -19,7 +19,7 @@ export default function Home() {
         />
 
         <div className="wrap relative flex flex-wrap items-start justify-between gap-4">
-          <p className="sign-lg text-[0.8rem] leading-snug sm:text-[0.92rem]">
+          <p className="sign-lg text-[0.92rem] leading-snug sm:text-[1.02rem]">
             Asian Community Center
             <br />
             Under 30
@@ -68,7 +68,7 @@ export default function Home() {
                   <span className="dir-floor text-left text-ink-3 transition-colors group-hover:text-vermillion-ink">
                     {cell.floor}
                   </span>
-                  <span className="sign-lg text-[0.86rem] text-ink">{cell.label}</span>
+                  <span className="sign-lg text-[0.95rem] text-ink">{cell.label}</span>
                   <span className="prose-small text-ink-2">{cell.detail}</span>
                 </Link>
               </li>

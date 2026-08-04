@@ -482,13 +482,13 @@ export const en: SiteCopy = {
       {
         name: 'Alex Zhu',
         role: 'Managing Director of Strategic Finance',
-        bio: 'Alex Yuxuan Zhu is an emerging leader in economics, finance, and social entrepreneurship. He has taken top honours in the International Economics Olympiad and the National Economics Challenge, and has practical experience in budgeting, financial oversight, project management, and business presentation. He has taken part in selective entrepreneurship programmes including LaunchX and Leadership in the Business World. He will study business and analytics at Carnegie Mellon University’s Tepper School of Business while gaining investment experience with the China-based evergreen fund Become Capital. At ACC-U30 he supports strategic financial planning and helps build sustainable, mission-driven programmes.',
+        bio: 'Alex Zhu is an emerging leader in economics, finance, and social entrepreneurship. He has taken top honours in the International Economics Olympiad and the National Economics Challenge, and has practical experience in budgeting, financial oversight, project management, and business presentation. He has taken part in selective entrepreneurship programmes including LaunchX and Leadership in the Business World. He will study business and analytics at Carnegie Mellon University’s Tepper School of Business while gaining investment experience with the China-based evergreen fund Become Capital. At ACC-U30 he supports strategic financial planning and helps build sustainable, mission-driven programmes.',
         portrait: alexZhu,
       },
       {
-        name: 'Liqian “Eric” Yan',
+        name: 'Eric Yan',
         role: 'Secretary-General',
-        bio: 'Liqian “Eric” Yan is a researcher, social entrepreneur, and community leader whose work spans natural language processing, computational economics, and the changing role of artificial intelligence in the labour market. He has led research on language-model accessibility and contributed to an international study analysing more than 100 million job postings across 72 countries. His work has been recognised by the Regeneron ISEF and the Yau Science Awards. He also co-founded the student nonprofit LinkScape, where he oversees finance, partnerships, and programme operations. As Secretary-General he brings experience in collaboration, budgeting, public communication, and youth-led service.',
+        bio: 'Eric Yan is a researcher, social entrepreneur, and community leader whose work spans natural language processing, computational economics, and the changing role of artificial intelligence in the labour market. He has led research on language-model accessibility and contributed to an international study analysing more than 100 million job postings across 72 countries. His work has been recognised by the Regeneron ISEF and the Yau Science Awards. He also co-founded the student nonprofit LinkScape, where he oversees finance, partnerships, and programme operations. As Secretary-General he brings experience in collaboration, budgeting, public communication, and youth-led service.',
         portrait: ericYan,
       },
     ],
