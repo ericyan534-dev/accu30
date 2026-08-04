@@ -36,15 +36,23 @@ export default function RingIng({ venture }: RingIngProps) {
         />
 
         <div className="wrap relative py-14 sm:py-20">
-          <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          {/* The red is in the rule, not the label: vermillion-lit measures
+              4.19:1 on the board and would not clear AA at signage size. */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <p className="sign text-on-board-2">Floor {venture.floor}</p>
-            <p className="sign text-vermillion-lit">{ringing.kicker}</p>
+            <p className="sign flex items-center gap-2.5 text-on-board">
+              <span aria-hidden="true" className="block h-3.5 w-[3px] bg-vermillion-lit" />
+              {ringing.kicker}
+            </p>
           </div>
 
+          {/* The heading's name lives in text, not in the image's alt, so the
+              page still has an H1 if the wordmark fails to load. */}
           <h1 className="mt-7">
+            <span className="sr-only">{venture.name}</span>
             <img
               src={wordmarkLight}
-              alt={venture.name}
+              alt=""
               className="h-11 w-auto sm:h-14"
               width={900}
               height={262}

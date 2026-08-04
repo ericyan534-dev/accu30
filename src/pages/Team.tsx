@@ -118,7 +118,8 @@ function Portrait({ person, className = '', surface = 'stone' }: PortraitProps) 
       aria-label={`${person.name} — portrait pending`}
       className={`grid aspect-square place-items-center px-2 text-center ${
         surface === 'stone'
-          ? 'bg-stone-deep text-ink-3 inset-ring inset-ring-stone-edge'
+          ? // ink-3 measures 4.32:1 on stone-deep — under AA. ink-2 is 6.77:1.
+            'bg-stone-deep text-ink-2 inset-ring inset-ring-stone-edge'
           : 'bg-board-raised text-on-board-2 inset-ring inset-ring-white/20'
       } ${className}`}
     >
