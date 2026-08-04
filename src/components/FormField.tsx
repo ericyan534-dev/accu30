@@ -2,6 +2,8 @@ import type { ApplicationField } from '@/content/types'
 
 interface FormFieldProps {
   readonly field: ApplicationField
+  /** The item number printed inside the cell, as on the paper form. */
+  readonly item: number
   readonly value: string
   readonly error?: string
   readonly onChange: (value: string) => void
@@ -14,10 +16,11 @@ const INPUT_TYPE: Record<string, string> = {
   date: 'date',
 }
 
-/** One numbered question on the application, set the way a form sets one:
- *  label above, rule below, help and errors in the same column so nothing
- *  about the question ever appears to the side of it. */
-export default function FormField({ field, value, error, onChange }: FormFieldProps) {
+/** One numbered item on Form ACC-U30 / M-1.
+ *
+ *  The cell carries the rule; the control inside it carries none. That is
+ *  how the printed form is set, and the screen form is the same form. */
+export default function FormField({ field, item, value, error, onChange }: FormFieldProps) {
   const errorId = `${field.id}-error`
   const hintId = `${field.id}-hint`
   const describedBy = [field.hint ? hintId : null, error ? errorId : null]
@@ -28,16 +31,17 @@ export default function FormField({ field, value, error, onChange }: FormFieldPr
   const over = field.maxWords ? words > field.maxWords : false
 
   return (
-    <div>
-      <label htmlFor={field.id} className="sign mb-2 flex flex-wrap items-baseline gap-x-2 text-ink-2">
+    <div className="form-cell">
+      <label htmlFor={field.id} className="sign flex flex-wrap items-baseline gap-x-2 text-ink">
+        <span className="text-ink-3">{String(item).padStart(2, '0')}</span>
         {field.label}
         {field.optional && (
-          <span className="normal-case tracking-normal text-ink-3">(optional)</span>
+          <span className="normal-case tracking-normal text-ink-3">optional</span>
         )}
       </label>
 
       {field.hint && (
-        <p id={hintId} className="prose-small mb-2 text-ink-3">
+        <p id={hintId} className="prose-small mt-1 text-ink-3 italic">
           {field.hint}
         </p>
       )}
@@ -45,29 +49,36 @@ export default function FormField({ field, value, error, onChange }: FormFieldPr
       {field.kind === 'long' ? (
         <textarea
           id={field.id}
-          rows={field.maxWords && field.maxWords > 150 ? 7 : 5}
-          className="form-field"
+          rows={field.maxWords && field.maxWords > 150 ? 8 : 6}
+          className="form-field mt-3"
           value={value}
           onChange={e => onChange(e.target.value)}
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy || undefined}
         />
       ) : field.kind === 'choice' ? (
-        <select
-          id={field.id}
-          className="form-field"
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          aria-invalid={Boolean(error)}
-          aria-describedby={describedBy || undefined}
-        >
-          <option value="">Select one</option>
-          {field.options?.map(option => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        <fieldset className="mt-3 mb-0 border-0 p-0">
+          <legend className="sr-only">{field.label}</legend>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2 lg:grid-cols-4">
+            {field.options?.map(option => (
+              <label
+                key={option}
+                className="flex min-h-[30px] cursor-pointer items-center gap-2.5 text-[0.95rem] text-ink-2"
+              >
+                <input
+                  type="radio"
+                  name={field.id}
+                  value={option}
+                  checked={value === option}
+                  onChange={e => onChange(e.target.value)}
+                  aria-describedby={describedBy || undefined}
+                  className="h-4 w-4 shrink-0 accent-[var(--color-vermillion)]"
+                />
+                {option}
+              </label>
+            ))}
+          </div>
+        </fieldset>
       ) : (
         <input
           id={field.id}
@@ -80,23 +91,22 @@ export default function FormField({ field, value, error, onChange }: FormFieldPr
         />
       )}
 
-      <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        {error ? (
-          <p id={errorId} className="prose-small text-vermillion-ink">
-            {error}
-          </p>
-        ) : (
-          <span />
-        )}
-        {field.maxWords && (
-          <p
-            className={`sign ${over ? 'text-vermillion-ink' : 'text-ink-3'}`}
-            aria-live="polite"
-          >
-            {words} / {field.maxWords} words
-          </p>
-        )}
-      </div>
+      {(error || field.maxWords) && (
+        <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          {error ? (
+            <p id={errorId} className="prose-small text-vermillion-ink">
+              {error}
+            </p>
+          ) : (
+            <span />
+          )}
+          {field.maxWords && (
+            <p className={`sign ${over ? 'text-vermillion-ink' : 'text-ink-3'}`} aria-live="polite">
+              {words} / {field.maxWords} words
+            </p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

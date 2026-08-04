@@ -447,27 +447,70 @@
     text-decoration: none;
   }
 
-  /* ── Form fields on the stone wall ────────────────────────────────── */
-  /* The application is a form, so its inputs are ruled boxes rather than
-     soft web controls: one hairline, square corners, the reading face, and
-     the same 44px floor every other target on the site has. */
+  /* ── The application, as a ruled form ──────────────────────────────────
+     The printed Form ACC-U30 / M-1 is a federal-register grid: boxed cells
+     sharing hairline edges, the item number inside the cell, a black band
+     per section. The screen version is the same form, so it is built the
+     same way — the cell is the border and the input has none of its own.
+     Everything resolves through tokens, so the night theme inverts to a
+     light rule on a dark ground without a second set of classes. */
+  .form-grid {
+    border-top: 1px solid var(--color-ink);
+    border-left: 1px solid var(--color-ink);
+  }
+  .form-cell {
+    flex: 1;
+    border-right: 1px solid var(--color-ink);
+    border-bottom: 1px solid var(--color-ink);
+    padding: 0.6rem 0.8rem 0.7rem;
+    min-height: 5.1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-band {
+    background: var(--color-ink);
+    color: var(--color-stone);
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+  }
+
   .form-field {
     width: 100%;
+    flex: 1;
     font-family: var(--font-prose);
     font-size: inherit;
     color: var(--color-ink);
-    background: var(--color-stone-deep);
-    border: 1px solid var(--color-stone-edge);
-    padding: 0.7rem 0.85rem;
-    min-height: 44px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink-3);
+    padding: 0.35rem 0 0.3rem;
+    margin-top: auto;
+    min-height: 2.1rem;
     outline: none;
     transition: border-color 150ms ease-out;
   }
-  .form-field:hover { border-color: var(--color-ink-3); }
-  .form-field:focus-visible { border-color: var(--color-vermillion-ink); }
-  .form-field[aria-invalid='true'] { border-color: var(--color-vermillion-ink); }
+  .form-field:hover { border-bottom-color: var(--color-ink); }
+  .form-field:focus-visible {
+    border-bottom-color: var(--color-vermillion-ink);
+    border-bottom-width: 2px;
+    outline: none;
+  }
+  .form-field[aria-invalid='true'] { border-bottom-color: var(--color-vermillion-ink); }
   .form-field::placeholder { color: var(--color-ink-3); }
-  textarea.form-field { resize: vertical; line-height: 1.55; }
+  textarea.form-field {
+    resize: vertical;
+    line-height: 1.6;
+    border-bottom-width: 0;
+    /* ruled writing lines, exactly as the printed form gives them */
+    background-image: repeating-linear-gradient(
+      var(--color-stone) 0 calc(1.6em - 1px),
+      var(--color-ink-3) calc(1.6em - 1px) 1.6em
+    );
+    background-attachment: local;
+    padding-top: 0.15rem;
+  }
 
   .wrap {
     width: 100%;
