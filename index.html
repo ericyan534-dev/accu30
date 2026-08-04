@@ -6,8 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="alternate icon" href="/favicon.ico" />
+    <meta name="color-scheme" content="light dark" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- The house lights, decided before first paint. Anything later and the
+         reader gets a white flash on the way to the night lobby. -->
+    <script>
+      (function () {
+        var stored = null
+        try {
+          stored = localStorage.getItem('acc-theme')
+        } catch (e) {}
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' &&
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+      })()
+    </script>
     <title><!-- figma:title --></title>
     <!-- figma:head-end -->
   </head>

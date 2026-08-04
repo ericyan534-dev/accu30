@@ -17,7 +17,7 @@ export default function Contact() {
             <h2 className="sign-lg mb-4 text-xl">{copy.contact.generalHeading}</h2>
             <p className="prose-body text-ink-2">{copy.contact.generalBody}</p>
             {CONTACT_EMAIL && (
-              <a href={`mailto:${CONTACT_EMAIL}`} className="sign mt-4 inline-block text-vermillion">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="sign mt-4 inline-block text-vermillion-ink">
                 {CONTACT_EMAIL}
               </a>
             )}
@@ -27,7 +27,7 @@ export default function Contact() {
             <h2 className="sign-lg mb-4 text-xl">{copy.contact.pressHeading}</h2>
             <p className="prose-body text-ink-2">{copy.contact.pressBody}</p>
             {press && (
-              <a href={`mailto:${press}`} className="sign mt-4 inline-block text-vermillion">
+              <a href={`mailto:${press}`} className="sign mt-4 inline-block text-vermillion-ink">
                 {press}
               </a>
             )}

@@ -1,6 +1,11 @@
 import { useCopy } from '@/content'
 import PageHeader from '@/components/PageHeader'
 
+/** The `mark` slot on PageHeader is for a TENANT's emblem. ACC's own fuller
+ *  emblem is not placed here: the lockup already sits in the tab rail 150px
+ *  above, and two versions of the same identity that close together read as
+ *  a mistake rather than as richness. The asset stays in src/assets/marks/
+ *  until there is a floor that is actually about it. */
 export default function Vision() {
   const copy = useCopy()
 
@@ -16,7 +21,7 @@ export default function Vision() {
               key={pillar.number}
               className="grid gap-x-8 gap-y-3 border-b border-stone-edge py-9 last:border-b-0 md:grid-cols-[3rem_14rem_1fr]"
             >
-              <span className="sign pt-1 text-vermillion">{pillar.number}</span>
+              <span className="sign pt-1 text-vermillion-ink">{pillar.number}</span>
               <h2 className="text-2xl">{pillar.title}</h2>
               <p className="prose-body text-ink-2">{pillar.body}</p>
             </li>

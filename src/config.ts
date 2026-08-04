@@ -17,3 +17,7 @@ export const POSTAL_ADDRESS: string | null = null
 export function pressAddress(): string | null {
   return PRESS_EMAIL ?? CONTACT_EMAIL
 }
+
+/** The printed membership form, served from `public/` and therefore base-path
+ *  aware — the site can live under a subdirectory without breaking the link. */
+export const APPLICATION_PDF = `${import.meta.env.BASE_URL}acc-u30-membership-application.pdf`

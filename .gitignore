@@ -15,3 +15,9 @@ DESIGN.md
 # Previous project snapshot and its original assets — content reference only.
 ACC-U30 Website Design V2/
 src/imports/
+# Original photography and brand artwork at full resolution, including
+# portraits of real people. The processed, published versions live in
+# src/assets/; the archive itself is source material and stays private.
+Photo_Archive/
+# Agent worktrees.
+.claude/worktrees/

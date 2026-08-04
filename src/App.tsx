@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { CopyProvider, useCopy } from '@/content'
 import TabRail from '@/components/TabRail'
@@ -11,9 +11,10 @@ import Vision from '@/pages/Vision'
 import Ventures from '@/pages/Ventures'
 import VentureDetail from '@/pages/VentureDetail'
 import Building from '@/pages/Building'
-import Leadership from '@/pages/Leadership'
+import Team from '@/pages/Team'
 import Ledger from '@/pages/Ledger'
 import Membership from '@/pages/Membership'
+import Apply from '@/pages/Apply'
 import Contact from '@/pages/Contact'
 import NotFound from '@/pages/NotFound'
 
@@ -82,10 +83,14 @@ export default function App() {
               <Route path="/ventures" element={<Ventures />} />
               <Route path="/ventures/:slug" element={<VentureDetail />} />
               <Route path="/building" element={<Building />} />
-              <Route path="/leadership" element={<Leadership />} />
+              <Route path="/team" element={<Team />} />
+              {/* The section was called Leadership until it grew past its
+                  four founders. Shared links from that period still resolve. */}
+              <Route path="/leadership" element={<Navigate to="/team" replace />} />
               <Route path="/news" element={<News />} />
               <Route path="/partners" element={<Partners />} />
               <Route path="/membership" element={<Membership />} />
+              <Route path="/membership/apply" element={<Apply />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

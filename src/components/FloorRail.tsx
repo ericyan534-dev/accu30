@@ -35,7 +35,7 @@ export default function FloorRail() {
             {live && (
               <span
                 aria-hidden="true"
-                className="absolute inset-y-1 left-0 w-[2px] bg-vermillion"
+                className="absolute inset-y-1 left-0 w-[2px] bg-vermillion-ink"
               />
             )}
             {item.floor}

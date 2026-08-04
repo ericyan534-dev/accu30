@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useCopy } from '@/content'
+import ThemeToggle from '@/components/ThemeToggle'
 import lockup from '@/assets/brand/acc-lockup-dark.webp'
 
 /** Navigation as the board's index tabs. These are real routed links with real
@@ -60,20 +61,27 @@ export default function TabRail() {
               {item.label}
             </NavLink>
           ))}
+          <span aria-hidden="true" className="my-3 ml-2 w-px bg-white/14" />
+          <ThemeToggle />
         </nav>
 
-        <button
-          type="button"
-          className="sign flex items-center gap-2 px-1 text-on-board xl:hidden"
-          aria-expanded={open}
-          aria-controls="tab-panel"
-          onClick={() => setOpen(v => !v)}
-        >
-          {open ? 'Close' : 'Directory'}
-          <span aria-hidden="true" className="text-[0.9rem] leading-none">
-            {open ? '×' : '≡'}
-          </span>
-        </button>
+        {/* The lighting control stays out on the rail on small screens too —
+            burying it inside the menu makes it a scavenger hunt. */}
+        <div className="flex items-stretch xl:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="sign flex items-center gap-2 px-3 text-on-board"
+            aria-expanded={open}
+            aria-controls="tab-panel"
+            onClick={() => setOpen(v => !v)}
+          >
+            {open ? 'Close' : 'Directory'}
+            <span aria-hidden="true" className="text-[0.9rem] leading-none">
+              {open ? '×' : '≡'}
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* mobile: the full board listing rather than a cramped menu */}

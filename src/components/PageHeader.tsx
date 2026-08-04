@@ -8,6 +8,10 @@ interface PageHeaderProps {
   /** A condition the reader must not misread, e.g. the building's status. */
   readonly notice?: string
   readonly noticeLabel?: string
+  /** An emblem belonging to whatever is on this floor — a tenant's own mark.
+   *  Reproduced as supplied; never recoloured to match the wall. */
+  readonly mark?: string | null
+  readonly markAlt?: string
 }
 
 /** Every page opens on the stone wall with its floor designation cut beside
@@ -18,6 +22,8 @@ export default function PageHeader({
   standfirst,
   notice,
   noticeLabel = 'Please note',
+  mark,
+  markAlt = '',
 }: PageHeaderProps) {
   return (
     <header className="relative overflow-hidden border-b border-stone-edge bg-linear-to-b from-stone to-stone-deep">
@@ -28,6 +34,14 @@ export default function PageHeader({
       />
       <div className="wrap relative py-14 sm:py-20">
         <p className="sign mb-5 text-ink-3">Floor {floor}</p>
+        {mark && (
+          <img
+            src={mark}
+            alt={markAlt}
+            className="mb-6 block h-14 w-auto sm:h-16"
+            loading="eager"
+          />
+        )}
         <h1
           className="cut incised-stone display-1 max-w-[16ch]"
         >

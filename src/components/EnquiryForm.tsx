@@ -177,7 +177,7 @@ function Field({
 }: FieldProps) {
   const describedBy = error ? `${id}-error` : undefined
   const base =
-    'w-full border bg-board-raised px-4 py-3 font-prose text-[0.98rem] text-on-board outline-none transition-colors placeholder:text-on-board-2 focus-visible:border-vermillion'
+    'w-full border bg-board-raised px-4 py-3 font-prose text-[0.98rem] text-on-board outline-none transition-colors placeholder:text-on-board-2 focus-visible:border-vermillion-lit'
   const borderClass = error ? 'border-vermillion-lit' : 'border-white/18'
 
   return (

@@ -1,6 +1,8 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useCopy } from '@/content'
+import type { Venture } from '@/content/types'
 import PageHeader from '@/components/PageHeader'
+import RingIng from '@/pages/RingIng'
 
 /** Renders whatever sections a venture actually has. The section list is not
  *  normalised across ventures — that is the whole point. */
@@ -16,12 +18,48 @@ export default function VentureDetail() {
 
   return (
     <>
-      <PageHeader floor={venture.floor} title={venture.name} standfirst={venture.summary} />
+      {/* Ring-ing is the priority venture and gets its own floor rather than
+          the shared tenant layout. Everything after this — the next-venture
+          plate — stays common, because leaving the floor works the same way
+          on every floor. */}
+      {venture.slug === 'ring-ing' ? (
+        <RingIng venture={venture} />
+      ) : (
+        <StandardVenture venture={venture} />
+      )}
+
+      <section className="board on-dark">
+        <div className="wrap flex flex-wrap items-center justify-between gap-4 py-10">
+          <div>
+            <p className="sign text-on-board-2">Next</p>
+            <p className="sign-lg mt-2 text-2xl text-on-board">{next.name}</p>
+          </div>
+          <Link to={`/ventures/${next.slug}`} className="action action-ghost">
+            Continue
+          </Link>
+        </div>
+      </section>
+    </>
+  )
+}
+
+/** The shared tenant layout: contents plate at left, the venture's own
+ *  sections at right, exactly as many as it has. */
+function StandardVenture({ venture }: { readonly venture: Venture }) {
+  return (
+    <>
+      <PageHeader
+        floor={venture.floor}
+        title={venture.name}
+        standfirst={venture.summary}
+        mark={venture.mark}
+        markAlt={`${venture.name} logotype`}
+      />
 
       <div className="wrap grid gap-10 py-12 sm:py-16 lg:grid-cols-[16rem_1fr] lg:gap-16">
         {/* the venture's own contents, as a small plate */}
         <nav aria-label="On this page" className="lg:sticky lg:top-24 lg:self-start">
-          <Link to="/ventures" className="link-row sign mb-5 text-ink-2 hover:text-vermillion">
+          <Link to="/ventures" className="link-row sign mb-5 text-ink-2 hover:text-vermillion-ink">
             ← All ventures
           </Link>
           <p className="sign mb-4 text-ink-3">Contents</p>
@@ -30,7 +68,7 @@ export default function VentureDetail() {
               <li key={section.label} className="border-t border-stone-edge">
                 <a
                   href={`#${slugify(section.label)}`}
-                  className="link-row sign w-full gap-3 text-ink-2 hover:text-vermillion"
+                  className="link-row sign w-full gap-3 text-ink-2 hover:text-vermillion-ink"
                 >
                   <span className="text-ink-3">{String(i + 1).padStart(2, '0')}</span>
                   {section.label}
@@ -57,18 +95,6 @@ export default function VentureDetail() {
           ))}
         </div>
       </div>
-
-      <section className="board on-dark">
-        <div className="wrap flex flex-wrap items-center justify-between gap-4 py-10">
-          <div>
-            <p className="sign text-on-board-2">Next</p>
-            <p className="sign-lg mt-2 text-2xl text-on-board">{next.name}</p>
-          </div>
-          <Link to={`/ventures/${next.slug}`} className="action action-ghost">
-            Continue
-          </Link>
-        </div>
-      </section>
     </>
   )
 }

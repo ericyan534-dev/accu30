@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ACC-U30 Membership Application</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap" />
+<style>
+  :root {
+    --ink: #14181a;
+    --ink-2: #3e4649;
+    --rule: #8d9694;
+    --vermillion: #c4282d;
+    --paper: #ffffff;
+    --font-sign: 'Archivo', system-ui, sans-serif;
+    --font-prose: 'Source Serif 4', Georgia, serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: var(--font-prose);
+    font-size: 8.6pt;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @page {
+    size: A4;
+    margin: 16mm 15mm;
+  }
+
+  /* ---- signage type: uppercase, tight width, letterspaced ---- */
+  .sign {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .page {
+    width: 180mm;
+    min-height: 261mm;
+    margin: 8mm auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+  }
+
+  .page.p1 { break-after: page; page-break-after: always; }
+  .page.p2 { break-after: auto; page-break-after: auto; }
+
+  /* ================= MASTHEAD ================= */
+  .masthead { margin-bottom: 1.4mm; }
+
+  .top-rule {
+    height: 0.9mm;
+    background: var(--vermillion);
+    margin-bottom: 1.3mm;
+  }
+
+  .org-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .org-name {
+    font-size: 13.5pt;
+    letter-spacing: 0.03em;
+  }
+
+  .org-sub {
+    font-family: var(--font-prose);
+    font-style: italic;
+    font-size: 7.4pt;
+    line-height: 1.1;
+    color: var(--ink-2);
+    margin-top: 0.6mm;
+  }
+
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 1.4mm;
+    padding-top: 1mm;
+    border-top: 0.35mm solid var(--rule);
+  }
+
+  .form-title {
+    font-size: 10.5pt;
+    letter-spacing: 0.04em;
+  }
+
+  .form-ref {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 6.6pt;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .instruction {
+    font-family: var(--font-prose);
+    font-size: 7.9pt;
+    line-height: 1.24;
+    color: var(--ink);
+    margin-top: 1.3mm;
+  }
+
+  .eligibility {
+    font-family: var(--font-prose);
+    font-style: italic;
+    font-size: 7pt;
+    line-height: 1.1;
+    color: var(--ink-2);
+    margin-top: 0.7mm;
+  }
+
+  .masthead-rule {
+    height: 0.35mm;
+    background: var(--rule);
+    margin-top: 1.4mm;
+  }
+
+  /* ================= CONTINUATION HEADER (page 2) ================= */
+  .continuation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 1.6mm;
+    border-bottom: 0.35mm solid var(--rule);
+    margin-bottom: 1.6mm;
+  }
+
+  .continuation-header .cont-org {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 6.6pt;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .continuation-header .cont-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .continuation-header .cont-title {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-weight: 700;
+    font-size: 8.5pt;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .continuation-header .cont-ref {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 6.6pt;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-top: 0.6mm;
+  }
+
+  /* ================= SECTIONS ================= */
+  .form-section {
+    margin-top: 2mm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 2.2mm;
+    margin: 0 0 1.3mm;
+    padding-bottom: 0.7mm;
+    border-bottom: 0.35mm solid var(--ink);
+  }
+
+  .section-letter {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-weight: 800;
+    font-size: 10.8pt;
+    line-height: 1;
+    color: var(--vermillion);
+    letter-spacing: 0.02em;
+  }
+
+  .section-title {
+    font-size: 9pt;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+
+  /* ---- single-line field rows ---- */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 7mm;
+    margin-bottom: 1.1mm;
+  }
+
+  .field-row.full { grid-template-columns: 1fr; }
+
+  .field { min-width: 0; }
+
+  .field label {
+    display: block;
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 6.4pt;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .field .note {
+    font-family: var(--font-prose);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 6.6pt;
+    color: var(--ink-2);
+  }
+
+  .field .rule {
+    height: 3.2mm;
+    border-bottom: 0.4mm solid var(--rule);
+  }
+
+  /* ---- checkbox grid ---- */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8mm;
+    row-gap: 1.1mm;
+    margin: 0.7mm 0 3mm;
+  }
+
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 2.2mm;
+    line-height: 1;
+  }
+
+  .checkbox-option .box {
+    flex: 0 0 auto;
+    width: 2.8mm;
+    height: 2.8mm;
+    border: 0.35mm solid var(--ink-2);
+  }
+
+  .checkbox-option .opt-label {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 7.2pt;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .checkbox-option.other .mini-rule {
+    flex: 1 1 auto;
+    height: 2.8mm;
+    border-bottom: 0.4mm solid var(--rule);
+  }
+
+  /* ---- multi-line ruled writing blocks ---- */
+  .q-label {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 7.1pt;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 0.3mm;
+  }
+
+  .q-note {
+    font-family: var(--font-prose);
+    font-style: italic;
+    font-size: 6.9pt;
+    line-height: 1.1;
+    color: var(--ink-2);
+    margin-bottom: 0.6mm;
+  }
+
+  .ruled-lines { margin-bottom: 2.4mm; }
+
+  .ruled-lines .line {
+    height: 9mm;
+    border-bottom: 0.4mm solid var(--rule);
+  }
+
+  /* ================= DECLARATION / PAGE 2 ================= */
+  .declaration-text {
+    font-family: var(--font-prose);
+    font-size: 9pt;
+    line-height: 1.62;
+  }
+
+  .signature-block {
+    display: grid;
+    grid-template-columns: 2.1fr 1.4fr 0.9fr;
+    gap: 0 9mm;
+    margin-top: 12mm;
+  }
+
+  .sig-field { display: flex; flex-direction: column; }
+
+  .sig-field .rule {
+    height: 11mm;
+    border-bottom: 0.5mm solid var(--ink-2);
+  }
+
+  .sig-field .cap {
+    margin-top: 1.8mm;
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 7.2pt;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .spacer { flex: 1 1 auto; }
+
+  /* ---- for office use only ---- */
+  .office-use {
+    border: 0.4mm solid var(--ink-2);
+    padding: 4mm 5mm 4.6mm;
+    margin-top: 6mm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .office-use .office-heading {
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 7.6pt;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 3mm;
+  }
+
+  .office-fields {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0 5mm;
+  }
+
+  .office-fields .field label {
+    font-size: 6.2pt;
+    white-space: normal;
+  }
+
+  .office-fields .field .rule { height: 6mm; }
+
+  /* ================= FOOTER ================= */
+  .page-footer {
+    margin-top: auto;
+    padding-top: 2.2mm;
+    border-top: 0.35mm solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-sign);
+    font-stretch: 82%;
+    font-size: 6.6pt;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  @media screen {
+    body { background: #d8dad9; padding: 6mm 0; }
+    .page { border: 0.4mm solid #c7cac9; }
+  }
+
+  @media print {
+    body { background: var(--paper); padding: 0; }
+    .page { margin: 0 auto; border: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ PAGE 1 ============ -->
+  <main class="page p1">
+    <header class="masthead">
+      <div class="top-rule"></div>
+      <div class="org-line">
+        <span class="sign org-name">Asian Community Center &middot; Under 30</span>
+      </div>
+      <div class="org-sub">New York City &middot; Nonprofit</div>
+
+      <div class="title-row">
+        <span class="sign form-title">Membership Application</span>
+        <span class="form-ref">FORM ACC-U30 / M-1</span>
+      </div>
+
+      <p class="instruction">Complete every section. Applications are reviewed by the ACC-U30 board. Submit the completed form, together with any supporting links, to the address published on the ACC-U30 contact page.</p>
+      <p class="eligibility">Applicants must be under 30 years of age on the date of application.</p>
+      <div class="masthead-rule"></div>
+    </header>
+
+    <!-- ---- SECTION A ---- -->
+    <section class="form-section">
+      <h2 class="section-heading">
+        <span class="section-letter sign">A</span>
+        <span class="section-title sign">Applicant</span>
+      </h2>
+
+      <div class="field-row full">
+        <div class="field">
+          <label>1. Full legal name</label>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>2. Preferred name</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>3. Date of birth <span class="note">&mdash; must be under 30 on the date of application</span></label>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>4. Email address</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>5. Telephone</label>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>6. City and country of residence</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>7. Nationality or citizenship <span class="note">&mdash; optional</span></label>
+          <div class="rule"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- SECTION B ---- -->
+    <section class="form-section">
+      <h2 class="section-heading">
+        <span class="section-letter sign">B</span>
+        <span class="section-title sign">Education and occupation</span>
+      </h2>
+
+      <div class="field-row">
+        <div class="field">
+          <label>8. Institution or employer</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>9. Programme of study or role</label>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <div class="q-label sign">10. Primary field</div>
+      <div class="checkbox-grid">
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Finance</span></div>
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Technology</span></div>
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Entrepreneurship</span></div>
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Public affairs</span></div>
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Media</span></div>
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Education</span></div>
+        <div class="checkbox-option"><span class="box"></span><span class="opt-label">Arts</span></div>
+        <div class="checkbox-option other"><span class="box"></span><span class="opt-label">Other</span><span class="mini-rule"></span></div>
+      </div>
+
+      <div class="field-row full">
+        <div class="field">
+          <label>11. Expected graduation, or years in role</label>
+          <div class="rule"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- SECTION C (part 1: Q12 only) ---- -->
+    <section class="form-section">
+      <h2 class="section-heading">
+        <span class="section-letter sign">C</span>
+        <span class="section-title sign">Contribution</span>
+      </h2>
+
+      <div class="q-label sign">12. What have you built, led, or shipped?</div>
+      <div class="q-note">200 words maximum.</div>
+      <div class="ruled-lines">
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+        <div class="line"></div><div class="line"></div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <span>Asian Community Center &middot; Under 30</span>
+      <span>Page 1 of 2</span>
+    </footer>
+  </main>
+
+  <!-- ============ PAGE 2 ============ -->
+  <main class="page p2">
+    <div class="continuation-header">
+      <span class="cont-org">Asian Community Center &middot; Under 30</span>
+      <span class="cont-right">
+        <span class="cont-title">Membership Application &middot; Continued</span>
+        <span class="cont-ref">FORM ACC-U30 / M-1</span>
+      </span>
+    </div>
+
+    <!-- ---- SECTION C (part 2: Q13, Q14) ---- -->
+    <!-- The heading repeats, marked "continued", so a reader who picks up
+         page 2 on its own still knows which section they are in. -->
+    <section class="form-section" style="margin-top: 0;">
+      <h2 class="section-heading">
+        <span class="section-letter sign">C</span>
+        <span class="section-title sign">Contribution &middot; continued</span>
+      </h2>
+
+      <div class="q-label sign">13. Which part of ACC-U30&rsquo;s work do you expect to contribute to, and how?</div>
+      <div class="q-note">150 words maximum.</div>
+      <div class="ruled-lines">
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+      </div>
+
+      <div class="q-label sign">14. Links &mdash; portfolio, publication, company, or profile</div>
+      <div class="ruled-lines">
+        <div class="line"></div><div class="line"></div><div class="line"></div>
+      </div>
+    </section>
+
+    <!-- ---- SECTION D ---- -->
+    <section class="form-section">
+      <h2 class="section-heading">
+        <span class="section-letter sign">D</span>
+        <span class="section-title sign">Referral</span>
+      </h2>
+
+      <div class="field-row">
+        <div class="field">
+          <label>15. Referred or nominated by <span class="note">&mdash; name and relationship, optional</span></label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>16. How did you first hear about ACC-U30?</label>
+          <div class="rule"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- SECTION E ---- -->
+    <section class="form-section">
+      <h2 class="section-heading">
+        <span class="section-letter sign">E</span>
+        <span class="section-title sign">Declaration</span>
+      </h2>
+
+      <p class="declaration-text">I confirm that the information given in this application is accurate and complete to the best of my knowledge. I consent to ACC-U30 processing this information for the purpose of reviewing my application. I understand that membership is granted at the discretion of the board, and I agree to uphold the standards of conduct expected of members.</p>
+
+      <div class="signature-block">
+        <div class="sig-field">
+          <div class="rule"></div>
+          <div class="cap">Signature</div>
+        </div>
+        <div class="sig-field">
+          <div class="rule"></div>
+          <div class="cap">Print name</div>
+        </div>
+        <div class="sig-field">
+          <div class="rule"></div>
+          <div class="cap">Date</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="spacer"></div>
+
+    <section class="office-use">
+      <div class="office-heading sign">For office use only</div>
+      <div class="office-fields">
+        <div class="field">
+          <label>Date received</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>Reference no.</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>Reviewed by</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>Board decision</label>
+          <div class="rule"></div>
+        </div>
+        <div class="field">
+          <label>Date of decision</label>
+          <div class="rule"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <span>Asian Community Center &middot; Under 30</span>
+      <span>Page 2 of 2</span>
+    </footer>
+  </main>
+
+</body>
+</html>

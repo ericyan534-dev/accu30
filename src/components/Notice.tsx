@@ -13,11 +13,11 @@ interface NoticeProps {
  *  measures 3.14:1 at this size — under AA — and the rule carries the same
  *  signal without asking colour to do the contrast work. */
 export default function Notice({ label, children, surface = 'stone' }: NoticeProps) {
-  const labelColor = surface === 'stone' ? 'text-vermillion' : 'text-on-board'
+  const labelColor = surface === 'stone' ? 'text-vermillion-ink' : 'text-on-board'
   const body = surface === 'stone' ? 'text-ink-2' : 'text-on-board-2'
 
   return (
-    <div className="max-w-[64ch] border-t-2 border-vermillion pt-3">
+    <div className="max-w-[64ch] border-t-2 border-vermillion-ink pt-3">
       <p className={`sign mb-2 ${labelColor}`}>{label}</p>
       <p className={`prose-small ${body}`}>{children}</p>
     </div>

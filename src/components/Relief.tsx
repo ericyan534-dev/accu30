@@ -23,20 +23,14 @@ export default function Relief({
   flip = false,
   surface = 'stone',
 }: ReliefProps) {
-  const lip =
-    surface === 'stone'
-      ? 'drop-shadow(0 1.5px 0 rgb(255 255 255 / 0.85))'
-      : 'drop-shadow(0 1.5px 0 rgb(198 168 118 / 0.30))'
-
   return (
     <div
       aria-hidden="true"
-      className={`relief absolute ${className}`}
+      className={`relief absolute${surface === 'board' ? ' on-board-surface' : ''} ${className}`}
       style={{
         // @ts-expect-error -- custom property consumed by the .relief rule
         '--relief-src': `url(${dragonSolid})`,
         opacity,
-        filter: lip,
         transform: flip ? 'scaleX(-1)' : undefined,
         aspectRatio: '774 / 476',
       }}

@@ -11,7 +11,7 @@ export default function NotFound() {
       <header className="relative overflow-hidden border-b border-stone-edge bg-linear-to-b from-stone to-stone-deep">
         <Relief className="right-[-10%] bottom-[-36%] hidden w-[min(38vw,420px)] text-ink lg:block" opacity={0.05} />
         <div className="wrap relative py-16 sm:py-24">
-          <p className="sign mb-5 text-vermillion">404</p>
+          <p className="sign mb-5 text-vermillion-ink">404</p>
           <h1 className="cut incised-stone display-1 max-w-[14ch]">
             {copy.notFound.title}
           </h1>

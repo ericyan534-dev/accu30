@@ -24,10 +24,47 @@
   --color-on-board: #e6e8e7; /* 14.3:1 on board */
   --color-on-board-2: #93a0a3; /* 6.8:1 on board, tinted from the slate */
 
+  /* Surface red: action grounds, rules, ticks. White on it measures 5.69:1
+     and it must stay put in both themes for that reason. */
   --color-vermillion: #c4282d;
+  /* Red as TYPE on the wall ground. Light and dark need different values;
+     #c4282d itself is only 3.99:1 on stone-deep and 2.92:1 on night stone. */
+  --color-vermillion-ink: #a81f24; /* 5.91:1 on stone, 5.11:1 on stone-deep */
+  /* Red as type on the board, which is dark in both themes. */
   --color-vermillion-lit: #d9464a;
 
   --color-bronze: #6f5b3e;
+}
+
+/* ── The same lobby after dark ───────────────────────────────────────────
+   Not an inversion. The stone wall drops to night granite, the boards go
+   darker still so they still read as plates set INTO the wall, and the lit
+   lip does the work the daylight used to do. Every value below is measured:
+   ink 12.9:1, ink-2 8.0:1, ink-3 5.5:1 on the night wall. */
+:root[data-theme='dark'] {
+  --color-stone: #1e2325;
+  --color-stone-deep: #171b1d;
+  --color-stone-edge: #394245;
+
+  --color-board: #0b0e0f;
+  --color-board-raised: #171c1e;
+  --color-board-groove: #000000;
+
+  --color-ink: #e6e8e7;
+  --color-ink-2: #b0babd;
+  --color-ink-3: #8f999c;
+
+  --color-vermillion-ink: #f0787b; /* 5.81:1 on night stone */
+
+  /* Bronze is relit so the plate edges still catch. Still never a text
+     colour — the one rule that does not bend in either theme. */
+  --color-bronze: #9a814f;
+
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
 }
 
 @layer base {
@@ -68,9 +105,10 @@
 
   p { margin: 0; }
 
-  /* Focus is a cut edge, visible on stone and on board alike. */
+  /* Focus is a cut edge, visible on stone and on board alike. It follows the
+     type red rather than the surface red so the ring clears 3:1 at night. */
   :focus-visible {
-    outline: 2px solid var(--color-vermillion);
+    outline: 2px solid var(--color-vermillion-ink);
     outline-offset: 3px;
   }
   .on-dark :focus-visible { outline-color: var(--color-vermillion-lit); }
@@ -89,6 +127,13 @@
       inset 0 1px 0 var(--color-board-groove),
       0 1px 0 rgb(255 255 255 / 0.5);
   }
+  /* At night the lip is the only bright edge in the room, so it is turned
+     down to a catch rather than a highlight. */
+  :root[data-theme='dark'] .board {
+    box-shadow:
+      inset 0 1px 0 var(--color-board-groove),
+      0 1px 0 rgb(255 255 255 / 0.13);
+  }
 
   /* Letters cut into a dark plate. */
   .incised {
@@ -103,13 +148,28 @@
       0 1px 0 rgb(255 255 255 / 0.75),
       0 -1px 1px rgb(20 24 26 / 0.26);
   }
+  /* On night stone the light source moves: the shadow falls into the cut
+     from above and only a thin lip catches below. Same physics as .incised. */
+  :root[data-theme='dark'] .incised-stone {
+    text-shadow:
+      0 -1px 1px rgb(0 0 0 / 0.7),
+      0 1px 0 rgb(198 168 118 / 0.16);
+  }
 
-  /* The dragon in relief. Recoloured by `color`, never by a blend mode. */
+  /* The dragon in relief. Recoloured by `color`, never by a blend mode. The
+     lit lip below the cut is a token because it belongs to the room's light,
+     not to the mark: on night stone the sun is not coming through a window. */
   .relief {
+    --relief-lip: drop-shadow(0 1.5px 0 rgb(255 255 255 / 0.85));
     background-color: currentColor;
     -webkit-mask: var(--relief-src) no-repeat center / contain;
     mask: var(--relief-src) no-repeat center / contain;
+    filter: var(--relief-lip);
     pointer-events: none;
+  }
+  .relief.on-board-surface,
+  :root[data-theme='dark'] .relief {
+    --relief-lip: drop-shadow(0 1.5px 0 rgb(198 168 118 / 0.3));
   }
 
   /* ── Signage type ─────────────────────────────────────────────────── */
@@ -156,7 +216,7 @@
      if a new size seems necessary, add a step here instead. */
   .display-hero { font-size: clamp(2.1rem, 5.4vw, 4.4rem); } /* the mission, home only */
   .display-1    { font-size: clamp(2rem, 5.4vw, 4rem); }     /* page titles */
-  .display-2    { font-size: clamp(1.7rem, 4vw, 3rem); }     /* major section heads */
+  .display-2    { font-size: clamp(1.8rem, 4vw, 3rem); }     /* major section heads */
   .display-3    { font-size: clamp(1.4rem, 3.2vw, 2.4rem); } /* pull quotes */
   .display-4    { font-size: clamp(1.3rem, 3vw, 2rem); }     /* board headings */
 
@@ -301,6 +361,20 @@
     height: auto;
     filter: saturate(0.55) contrast(1.03);
   }
+  /* A lit photograph on a night wall reads as a hole punched in it. Dim the
+     reference plates so they sit in the same light as everything else. */
+  :root[data-theme='dark'] .plate img {
+    filter: saturate(0.5) contrast(1.03) brightness(0.86);
+  }
+  /* A venture's OWN artwork is not borrowed reference: it keeps its colour.
+     Same mount, same caption, no desaturation. */
+  .plate.own img {
+    filter: none;
+  }
+  :root[data-theme='dark'] .plate.own img {
+    filter: brightness(0.94);
+  }
+
   .plate figcaption {
     font-family: var(--font-sign);
     font-variation-settings: 'wdth' 72;
@@ -373,6 +447,28 @@
     text-decoration: none;
   }
 
+  /* ── Form fields on the stone wall ────────────────────────────────── */
+  /* The application is a form, so its inputs are ruled boxes rather than
+     soft web controls: one hairline, square corners, the reading face, and
+     the same 44px floor every other target on the site has. */
+  .form-field {
+    width: 100%;
+    font-family: var(--font-prose);
+    font-size: inherit;
+    color: var(--color-ink);
+    background: var(--color-stone-deep);
+    border: 1px solid var(--color-stone-edge);
+    padding: 0.7rem 0.85rem;
+    min-height: 44px;
+    outline: none;
+    transition: border-color 150ms ease-out;
+  }
+  .form-field:hover { border-color: var(--color-ink-3); }
+  .form-field:focus-visible { border-color: var(--color-vermillion-ink); }
+  .form-field[aria-invalid='true'] { border-color: var(--color-vermillion-ink); }
+  .form-field::placeholder { color: var(--color-ink-3); }
+  textarea.form-field { resize: vertical; line-height: 1.55; }
+
   .wrap {
     width: 100%;
     max-width: 1240px;
@@ -417,6 +513,54 @@
   }
   @keyframes floor-enter {
     from { opacity: 0; transform: translateY(14px); }
+  }
+
+  /* ── Paper ──────────────────────────────────────────────────────────
+     The completed application is meant to be printed and posted, so on
+     paper the site stops being a site: the lobby chrome drops away, both
+     themes resolve to ink on white, and the document sets to A4. */
+  @media print {
+    :root,
+    :root[data-theme='dark'] {
+      --color-stone: #ffffff;
+      --color-stone-deep: #ffffff;
+      --color-stone-edge: #8d9694;
+      --color-ink: #14181a;
+      --color-ink-2: #3e4649;
+      --color-ink-3: #5a6366;
+      --color-vermillion-ink: #a81f24;
+      color-scheme: light;
+    }
+
+    @page {
+      size: A4;
+      margin: 16mm 15mm;
+    }
+
+    body {
+      background: #ffffff;
+      font-size: 10.5pt;
+    }
+
+    header.board,
+    footer.board,
+    nav[aria-label='Floor indicator'] {
+      display: none !important;
+    }
+
+    .wrap {
+      max-width: none;
+      padding-inline: 0;
+    }
+
+    .application-doc {
+      max-width: none;
+      margin-top: 0;
+    }
+
+    .application-doc section {
+      break-inside: avoid;
+    }
   }
 
   @keyframes set-row {

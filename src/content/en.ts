@@ -1,5 +1,33 @@
 import type { SiteCopy } from './types'
 
+import encountraMark from '@/assets/marks/encountra-mark.webp'
+import ringingMark from '@/assets/ringing/wordmark-brand.webp'
+
+import lincolnZhu from '@/assets/team/lincoln-zhu.webp'
+import alexZhu from '@/assets/team/alex-zhu.webp'
+import ericYan from '@/assets/team/eric-yan.webp'
+import taochengHuang from '@/assets/team/taocheng-huang.webp'
+import edwardL from '@/assets/team/edward-l.webp'
+import ericHua from '@/assets/team/eric-hua.webp'
+import tingxuanZhu from '@/assets/team/tingxuan-zhu.webp'
+
+import intj from '@/assets/ringing/fbti-intj.webp'
+import entj from '@/assets/ringing/fbti-entj.webp'
+import intp from '@/assets/ringing/fbti-intp.webp'
+import entp from '@/assets/ringing/fbti-entp.webp'
+import infj from '@/assets/ringing/fbti-infj.webp'
+import enfj from '@/assets/ringing/fbti-enfj.webp'
+import infp from '@/assets/ringing/fbti-infp.webp'
+import enfp from '@/assets/ringing/fbti-enfp.webp'
+import istj from '@/assets/ringing/fbti-istj.webp'
+import estj from '@/assets/ringing/fbti-estj.webp'
+import istp from '@/assets/ringing/fbti-istp.webp'
+import estp from '@/assets/ringing/fbti-estp.webp'
+import isfj from '@/assets/ringing/fbti-isfj.webp'
+import esfj from '@/assets/ringing/fbti-esfj.webp'
+import isfp from '@/assets/ringing/fbti-isfp.webp'
+import esfp from '@/assets/ringing/fbti-esfp.webp'
+
 import poolImg from '@/assets/spaces/image-2.webp'
 import fitnessImg from '@/assets/spaces/image-3.webp'
 import basketballImg from '@/assets/spaces/image-4.webp'
@@ -29,9 +57,24 @@ export const en: SiteCopy = {
     summary:
       'A nonprofit incubating ventures started by its members — and developing a community building in New York City for culture, education, wellness, business and public service, across generations.',
     statusRail: [
-      'Four ventures operating',
-      'One building in development',
-      'Membership by nomination',
+      {
+        floor: '02',
+        label: 'Four ventures operating',
+        detail: 'Encountra · Curtain Media · Application Advisory · Ring-ing',
+        to: '/ventures',
+      },
+      {
+        floor: '03',
+        label: 'One building in development',
+        detail: 'Eleven spaces programmed for a single New York City address',
+        to: '/building',
+      },
+      {
+        floor: '07',
+        label: 'Membership by application',
+        detail: 'Open to under-30s who have built something. Reviewed by the board',
+        to: '/membership',
+      },
     ],
   },
 
@@ -39,7 +82,7 @@ export const en: SiteCopy = {
     { label: 'Vision', to: '/vision', floor: '01' },
     { label: 'Ventures', to: '/ventures', floor: '02' },
     { label: 'The Building', to: '/building', floor: '03' },
-    { label: 'Leadership', to: '/leadership', floor: '04' },
+    { label: 'Team', to: '/team', floor: '04' },
     { label: 'News & Events', to: '/news', floor: '05' },
     { label: 'Partners', to: '/partners', floor: '06' },
     { label: 'Membership', to: '/membership', floor: '07' },
@@ -54,10 +97,11 @@ export const en: SiteCopy = {
     { label: 'Application Advisory', note: 'Advisory', floor: '02·C', to: '/ventures/application-advisory', tenant: true },
     { label: 'Ring-ing', note: 'Career workspace', floor: '02·D', to: '/ventures/ring-ing', tenant: true },
     { label: 'The Building', note: 'Eleven spaces · planned', floor: '03', to: '/building' },
-    { label: 'Leadership', note: 'Four founders', floor: '04', to: '/leadership' },
+    { label: 'Team', note: 'Four officers, ten people', floor: '04', to: '/team' },
     { label: 'News & Events', note: 'Programmes held', floor: '05', to: '/news' },
     { label: 'Partners', note: 'Supporters', floor: '06', to: '/partners' },
-    { label: 'Membership', note: 'By nomination', floor: '07', to: '/membership' },
+    { label: 'Membership', note: 'By application', floor: '07', to: '/membership' },
+    { label: 'Application form', note: 'Form ACC-U30 / M-1', floor: '07·A', to: '/membership/apply', tenant: true },
     { label: 'Contact', note: 'Enquiries', floor: '08', to: '/contact' },
   ],
 
@@ -66,7 +110,7 @@ export const en: SiteCopy = {
     seeWork: 'See the four ventures',
     readProgramme: 'Read the programme',
     enquire: 'Send an enquiry',
-    nominate: 'Express interest',
+    nominate: 'Apply for membership',
   },
 
   home: {
@@ -134,6 +178,7 @@ export const en: SiteCopy = {
         name: 'Encountra',
         category: 'AI social platform',
         floor: '02·A',
+        mark: encountraMark,
         summary:
           'An AI-driven, privacy-first social platform building high-trust relationships within the international student community.',
         sections: [
@@ -170,6 +215,7 @@ export const en: SiteCopy = {
         name: 'Curtain Media',
         category: 'Documentary media',
         floor: '02·B',
+        mark: null,
         summary:
           'A documentary and interview media project on the people, cultures, and communities that shape American regions. The first episode centres on Brooklyn.',
         sections: [
@@ -229,6 +275,7 @@ export const en: SiteCopy = {
         name: 'Application Advisory',
         category: 'Education advisory',
         floor: '02·C',
+        mark: null,
         summary:
           'Targeted, task-based guidance for undergraduate admissions, graduate pathways, and early professional career planning.',
         sections: [
@@ -265,6 +312,7 @@ export const en: SiteCopy = {
         name: 'Ring-ing',
         category: 'Career workspace',
         floor: '02·D',
+        mark: ringingMark,
         summary:
           'An AI-native career development workspace connecting job search, profiling, outreach, interview preparation, and learning into one continuous workflow.',
         sections: [
@@ -411,17 +459,86 @@ export const en: SiteCopy = {
     ],
   },
 
-  leadership: {
-    title: 'Leadership',
-    standfirst: 'ACC-U30 was founded by four people and is run by them today.',
-    pendingNote:
-      'Biographies and portraits are being prepared and will be published here. We would rather leave this blank than fill it with a stand-in.',
-    founders: [
-      { name: 'Lincoln Zhu', role: 'Co-founder', bio: '', portrait: null },
-      { name: 'Eric Zhang', role: 'Co-founder', bio: '', portrait: null },
-      { name: 'Alex Zhu', role: 'Co-founder', bio: '', portrait: null },
-      { name: 'Eric Yan', role: 'Co-founder', bio: '', portrait: null },
+  team: {
+    title: 'Team',
+    standfirst:
+      'ACC-U30 was founded by four people, who hold its offices and run it today. Nine others work alongside them.',
+    officersHeading: 'The four officers',
+    officersNote:
+      'The founders of ACC-U30. Each holds a named office and is accountable for it.',
+    officers: [
+      {
+        name: 'Lincoln Zhu',
+        role: 'Chair',
+        bio: 'Lincoln Zhu is a young entrepreneur, civic advocate, and community organizer committed to creating meaningful social impact. After early experience in entrepreneurship and financial education, he co-founded Buffalo Web3 Community, a professional learning network with more than 500 members. His interest in public service led him to work with the New York City Council, the New York State Assembly, and political campaigns at the local, state, and federal levels, and to serve as Deputy Chief of Staff to Joyce Xie. As Chair of ACC-U30 he works to empower young leaders and advance a more inclusive, equitable, and engaged community. He will continue his studies at Babson College.',
+        portrait: lincolnZhu,
+      },
+      {
+        name: 'Eric Zhang',
+        role: 'Head of Finance',
+        bio: 'Eric Zhang is a finance-focused entrepreneur and community builder studying at Wesleyan University. He founded AEY Academy at seventeen to create a professional learning platform for young people interested in finance, growing its educational content past 100,000 views and developing several peer-learning communities. He has since worked in investment research, asset management, banking, and organizational operations. As Head of Finance he applies that background to financial planning, sustainable initiatives, and opportunities for the next generation of community leaders.',
+        portrait: null,
+      },
+      {
+        name: 'Alex Zhu',
+        role: 'Managing Director of Strategic Finance',
+        bio: 'Alex Yuxuan Zhu is an emerging leader in economics, finance, and social entrepreneurship. He has taken top honours in the International Economics Olympiad and the National Economics Challenge, and has practical experience in budgeting, financial oversight, project management, and business presentation. He has taken part in selective entrepreneurship programmes including LaunchX and Leadership in the Business World. He will study business and analytics at Carnegie Mellon University’s Tepper School of Business while gaining investment experience with the China-based evergreen fund Become Capital. At ACC-U30 he supports strategic financial planning and helps build sustainable, mission-driven programmes.',
+        portrait: alexZhu,
+      },
+      {
+        name: 'Liqian “Eric” Yan',
+        role: 'Secretary-General',
+        bio: 'Liqian “Eric” Yan is a researcher, social entrepreneur, and community leader whose work spans natural language processing, computational economics, and the changing role of artificial intelligence in the labour market. He has led research on language-model accessibility and contributed to an international study analysing more than 100 million job postings across 72 countries. His work has been recognised by the Regeneron ISEF and the Yau Science Awards. He also co-founded the student nonprofit LinkScape, where he oversees finance, partnerships, and programme operations. As Secretary-General he brings experience in collaboration, budgeting, public communication, and youth-led service.',
+        portrait: ericYan,
+      },
     ],
+    membersHeading: 'Operations and technology',
+    membersNote:
+      'The people who run the organisation day to day and build what it ships.',
+    members: [
+      { name: 'Taocheng Huang', role: 'Operations', bio: '', portrait: taochengHuang },
+      { name: 'Edward L', role: 'Junior Associate', bio: '', portrait: edwardL },
+      { name: 'Tingxuan Zhu', role: 'Technology', bio: '', portrait: tingxuanZhu },
+      { name: 'Eric Hua', role: 'Technology', bio: '', portrait: ericHua },
+      { name: 'Ron Dai', role: 'Technology', bio: '', portrait: null },
+      { name: 'Jack Yu', role: 'Technology', bio: '', portrait: null },
+    ],
+    pendingNote:
+      'Portraits arrive as people supply them. A missing one is left as a marked plate rather than filled with a stand-in.',
+  },
+
+  ringing: {
+    kicker: 'Priority venture',
+    tagline: 'The new era of global career intelligence starts here.',
+    taglineNote: 'Ring-ing’s own line, from its brand banner.',
+    mascotHeading: 'Sixteen birds',
+    mascotStandfirst:
+      'Ring-ing’s profiling assigns each user one of sixteen finance-career archetypes — its FBTI. Every archetype is the same bird, drawn into a different working life.',
+    mascotNote:
+      'Artwork and accent colours belong to Ring-ing and are reproduced as the venture uses them, not adapted to this site’s palette.',
+    mascots: [
+      { code: 'INTJ', accent: '#2f87b9', art: intj },
+      { code: 'ENTJ', accent: '#009ff9', art: entj },
+      { code: 'INTP', accent: '#3f6eff', art: intp },
+      { code: 'ENTP', accent: '#fcd000', art: entp },
+      { code: 'INFJ', accent: '#288b9a', art: infj },
+      { code: 'ENFJ', accent: '#00d4ff', art: enfj },
+      { code: 'INFP', accent: '#ecd89c', art: infp },
+      { code: 'ENFP', accent: '#b1cd1f', art: enfp },
+      { code: 'ISTJ', accent: '#991c27', art: istj },
+      { code: 'ESTJ', accent: '#288b9a', art: estj },
+      { code: 'ISTP', accent: '#323ab5', art: istp },
+      { code: 'ESTP', accent: '#d8af39', art: estp },
+      { code: 'ISFJ', accent: '#742d33', art: isfj },
+      { code: 'ESFJ', accent: '#ffd964', art: esfj },
+      { code: 'ISFP', accent: '#b9146b', art: isfp },
+      { code: 'ESFP', accent: '#de7862', art: esfp },
+    ],
+    productHeading: 'The workspace, as it ships',
+    productNote:
+      'ringingcareer.com, captured August 2026. The interface is in Chinese; the platform is built first for international students recruiting into finance.',
+    siteLabel: 'ringingcareer.com',
+    siteUrl: 'https://ringingcareer.com',
   },
 
   news: {
@@ -443,20 +560,154 @@ export const en: SiteCopy = {
 
   membership: {
     title: 'Membership',
-    standfirst: 'ACC-U30 is a nominated membership. There is no open application.',
+    standfirst:
+      'ACC-U30 is now an application-based membership. Anyone who meets the standard may apply directly.',
     body: [
-      'Members are proposed by people already inside the organisation. We ask that anyone put forward is doing work someone else could point to — a company, a programme, a body of research, a service to a community.',
-      'If you believe you should be part of this, the right first step is to tell us what you have built. If it fits, someone will take it forward.',
+      'Members were previously added only by nomination. Applications are now accepted from anyone who meets the standard; a nomination from someone already inside is welcome, but it is no longer the way in.',
+      'What we ask has not changed. Be doing work someone else could point to — a company, a programme, a body of research, a service to a community. Tell us what you have built. If it fits, someone will take it forward.',
     ],
     criteriaHeading: 'What we look for',
     criteria: [
-      'Under thirty at the time of nomination.',
+      'Under thirty at the time of application.',
       'Evidence of building something, rather than intention to build something.',
       'A willingness to contribute to other members’ work, not only to draw on it.',
       'Conduct that would survive being made public.',
     ],
-    formNote:
-      'Expressions of interest are read by the founders. We reply to the ones we take forward.',
+    processHeading: 'How an application is handled',
+    process: [
+      {
+        step: 'Submit',
+        body: 'Complete Form ACC-U30 / M-1, on this site or on paper. Both carry the same questions.',
+      },
+      {
+        step: 'Review',
+        body: 'The officers read every application that arrives. We read for the work, not for the credentials around it.',
+      },
+      {
+        step: 'Conversation',
+        body: 'Applications taken forward move to a conversation with an officer before any decision is made.',
+      },
+      {
+        step: 'Decision',
+        body: 'Membership is granted at the discretion of the board. We reply to the applications we take forward.',
+      },
+    ],
+    applyHeading: 'Apply',
+    applyBody:
+      'The form is short and takes about fifteen minutes. Nothing leaves your browser until you choose to print or send it.',
+    downloadLabel: 'Download the printed form',
+    downloadNote: 'Form ACC-U30 / M-1 · PDF · two pages · A4',
+    formNote: 'Applications are read by the officers.',
+  },
+
+  application: {
+    title: 'Membership application',
+    standfirst:
+      'Complete every section. Nothing leaves your browser until you choose to print or send the finished form.',
+    reference: 'Form ACC-U30 / M-1',
+    eligibility: 'Applicants must be under thirty years of age on the date of application.',
+    instructions:
+      'If you would rather fill this in by hand, the printed version of this form carries exactly the same questions.',
+    sections: [
+      {
+        letter: 'A',
+        title: 'Applicant',
+        fields: [
+          { id: 'fullName', label: 'Full legal name', kind: 'text' },
+          { id: 'preferredName', label: 'Preferred name', kind: 'text', optional: true },
+          {
+            id: 'dob',
+            label: 'Date of birth',
+            kind: 'date',
+            hint: 'You must be under thirty on the date of application.',
+          },
+          { id: 'email', label: 'Email address', kind: 'email' },
+          { id: 'phone', label: 'Telephone', kind: 'tel', optional: true },
+          { id: 'residence', label: 'City and country of residence', kind: 'text' },
+          {
+            id: 'nationality',
+            label: 'Nationality or citizenship',
+            kind: 'text',
+            optional: true,
+          },
+        ],
+      },
+      {
+        letter: 'B',
+        title: 'Education and occupation',
+        fields: [
+          { id: 'institution', label: 'Institution or employer', kind: 'text' },
+          { id: 'programme', label: 'Programme of study or role', kind: 'text' },
+          {
+            id: 'field',
+            label: 'Primary field',
+            kind: 'choice',
+            options: [
+              'Finance',
+              'Technology',
+              'Entrepreneurship',
+              'Public affairs',
+              'Media',
+              'Education',
+              'Arts',
+              'Other',
+            ],
+          },
+          { id: 'horizon', label: 'Expected graduation, or years in role', kind: 'text' },
+        ],
+      },
+      {
+        letter: 'C',
+        title: 'Contribution',
+        fields: [
+          {
+            id: 'built',
+            label: 'What have you built, led, or shipped?',
+            kind: 'long',
+            maxWords: 200,
+          },
+          {
+            id: 'contribute',
+            label: 'Which part of ACC-U30’s work do you expect to contribute to, and how?',
+            kind: 'long',
+            maxWords: 150,
+          },
+          {
+            id: 'links',
+            label: 'Links — portfolio, publication, company, or profile',
+            kind: 'long',
+            hint: 'One per line.',
+            optional: true,
+          },
+        ],
+      },
+      {
+        letter: 'D',
+        title: 'Referral',
+        fields: [
+          {
+            id: 'referral',
+            label: 'Referred or nominated by — name and relationship',
+            kind: 'text',
+            optional: true,
+          },
+          { id: 'source', label: 'How did you first hear about ACC-U30?', kind: 'text' },
+        ],
+      },
+    ],
+    declarationHeading: 'Declaration',
+    declaration:
+      'I confirm that the information given in this application is accurate and complete to the best of my knowledge. I consent to ACC-U30 processing this information for the purpose of reviewing my application. I understand that membership is granted at the discretion of the board, and I agree to uphold the standards of conduct expected of members.',
+    submitLabel: 'Review my application',
+    reviewHeading: 'Your completed application',
+    reviewBody:
+      'Read it once more. Printing gives you a signed copy for your records and a PDF you can send.',
+    printLabel: 'Print or save as PDF',
+    editLabel: 'Go back and edit',
+    copyLabel: 'Copy as plain text',
+    copiedLabel: 'Copied to clipboard',
+    noAddressNote:
+      'ACC-U30 has not published a submission address yet. Save your completed form now and send it once the address appears on the Contact page.',
   },
 
   contact: {

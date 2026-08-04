@@ -34,7 +34,7 @@ export default function Home() {
         <div className="wrap relative">
           <h1 className="cut incised-stone display-hero max-w-[19ch]">
             {copy.org.missionLead}{' '}
-            <span className="text-vermillion">{copy.org.missionAccent}</span>
+            <span className="text-vermillion-ink">{copy.org.missionAccent}</span>
           </h1>
 
           <p className="prose-body mt-6 max-w-[52ch] text-lg text-ink-2">{copy.org.summary}</p>
@@ -49,22 +49,32 @@ export default function Home() {
           </div>
         </div>
 
-        {/* The proof rail: three hard facts as discrete cells, then the four
-            ventures named — the only evidence of execution, above the fold. */}
-        <div className="wrap relative">
-          <hr className="border-0 border-t border-stone-edge" />
-          <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-3">
-            {copy.org.statusRail.map(fact => (
-              <div key={fact}>
-                <dt className="sr-only">Status</dt>
-                <dd className="sign-lg text-[0.82rem] text-ink">{fact}</dd>
-              </div>
+        {/* Three doors, not three captions. The previous version set three
+            labels across a row and hung one line of content under the first,
+            which read as two empty columns — a fact with nothing under it is
+            a hole in the wall. Each cell now carries its own floor number,
+            its own label and its own line, and each one opens. */}
+        <nav className="wrap relative" aria-label="Where to start">
+          <ul className="grid list-none border-t border-stone-edge p-0 sm:grid-cols-3">
+            {copy.org.statusRail.map(cell => (
+              <li
+                key={cell.to}
+                className="border-b border-stone-edge sm:border-b-0 sm:border-l sm:border-stone-edge sm:first:border-l-0"
+              >
+                <Link
+                  to={cell.to}
+                  className="group flex h-full flex-col gap-2 py-5 transition-colors sm:px-6 sm:first:pl-0 sm:last:pr-0"
+                >
+                  <span className="dir-floor text-left text-ink-3 transition-colors group-hover:text-vermillion-ink">
+                    {cell.floor}
+                  </span>
+                  <span className="sign-lg text-[0.86rem] text-ink">{cell.label}</span>
+                  <span className="prose-small text-ink-2">{cell.detail}</span>
+                </Link>
+              </li>
             ))}
-          </dl>
-          <p className="mt-4 text-[0.9rem] text-ink-2">
-            {copy.ventures.items.map(v => v.name).join(' · ')}
-          </p>
-        </div>
+          </ul>
+        </nav>
       </section>
 
       {/* ── Screen two is the EVIDENCE, not the navigation. These four

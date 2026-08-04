@@ -25,6 +25,9 @@ export interface Venture {
   readonly summary: string
   /** Directory designation, e.g. '02·A'. */
   readonly floor: string
+  /** The venture's own mark, reproduced as it is — a tenant's sign is never
+   *  recoloured to match the board. `null` where no artwork exists. */
+  readonly mark: string | null
   /** Variable per venture — never normalise these. */
   readonly sections: readonly Section[]
 }
@@ -44,13 +47,42 @@ export interface BuildingSpace {
   readonly imageNote: string
 }
 
-export interface Founder {
+export interface Person {
   readonly name: string
   readonly role: string
   /** Empty string means "not yet supplied" — rendered as an honest gap,
    *  never as a stock portrait or invented biography. */
   readonly bio: string
   readonly portrait: string | null
+}
+
+/** One of the sixteen archetypes Ring-ing's FBTI profiling assigns, drawn as
+ *  the Ring-ing bird. `accent` is the venture's own published accent for that
+ *  type — it is Ring-ing's colour, not ACC's, and is used only inside the
+ *  mascot artwork's own frame. */
+export interface Mascot {
+  readonly code: string
+  readonly accent: string
+  readonly art: string
+}
+
+/** One question on the membership application. The same schema drives the
+ *  on-site form and the printed document, so they cannot drift apart. */
+export interface ApplicationField {
+  readonly id: string
+  readonly label: string
+  readonly kind: 'text' | 'email' | 'tel' | 'date' | 'long' | 'choice'
+  readonly hint?: string
+  readonly options?: readonly string[]
+  readonly optional?: boolean
+  /** Soft ceiling shown to the applicant and enforced as a warning. */
+  readonly maxWords?: number
+}
+
+export interface ApplicationSection {
+  readonly letter: string
+  readonly title: string
+  readonly fields: readonly ApplicationField[]
 }
 
 export interface DirectoryEntry {
@@ -75,7 +107,15 @@ export interface SiteCopy {
     readonly city: string
     readonly kind: string
     readonly summary: string
-    readonly statusRail: readonly string[]
+    /** Three doors under the mission. Each carries its own floor number, its
+     *  own label and its own line of real content — a fact with nothing
+     *  underneath it is a hole in the wall, not a fact. */
+    readonly statusRail: readonly {
+      readonly floor: string
+      readonly label: string
+      readonly detail: string
+      readonly to: string
+    }[]
   }
 
   readonly nav: readonly { readonly label: string; readonly to: string; readonly floor: string }[]
@@ -121,11 +161,33 @@ export interface SiteCopy {
     readonly spaces: readonly BuildingSpace[]
   }
 
-  readonly leadership: {
+  readonly team: {
     readonly title: string
     readonly standfirst: string
-    readonly founders: readonly Founder[]
+    /** The four officers who run the organisation, named as such. */
+    readonly officersHeading: string
+    readonly officersNote: string
+    readonly officers: readonly Person[]
+    /** Everyone else on the roster, listed the way the board lists tenants. */
+    readonly membersHeading: string
+    readonly membersNote: string
+    readonly members: readonly Person[]
     readonly pendingNote: string
+  }
+
+  readonly ringing: {
+    /** Why this venture gets its own room. */
+    readonly kicker: string
+    readonly tagline: string
+    readonly taglineNote: string
+    readonly mascotHeading: string
+    readonly mascotStandfirst: string
+    readonly mascotNote: string
+    readonly mascots: readonly Mascot[]
+    readonly productHeading: string
+    readonly productNote: string
+    readonly siteLabel: string
+    readonly siteUrl: string
   }
 
   readonly news: {
@@ -148,7 +210,32 @@ export interface SiteCopy {
     readonly body: readonly string[]
     readonly criteriaHeading: string
     readonly criteria: readonly string[]
+    readonly processHeading: string
+    readonly process: readonly { readonly step: string; readonly body: string }[]
+    readonly applyHeading: string
+    readonly applyBody: string
+    readonly downloadLabel: string
+    readonly downloadNote: string
     readonly formNote: string
+  }
+
+  readonly application: {
+    readonly title: string
+    readonly standfirst: string
+    readonly reference: string
+    readonly eligibility: string
+    readonly instructions: string
+    readonly sections: readonly ApplicationSection[]
+    readonly declarationHeading: string
+    readonly declaration: string
+    readonly submitLabel: string
+    readonly reviewHeading: string
+    readonly reviewBody: string
+    readonly printLabel: string
+    readonly editLabel: string
+    readonly copyLabel: string
+    readonly copiedLabel: string
+    readonly noAddressNote: string
   }
 
   readonly contact: {
