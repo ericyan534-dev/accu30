@@ -21,7 +21,6 @@ pnpm format     # oxfmt
 
 ## Routes
 
-
 | Path | Page |
 | --- | --- |
 | `/` | Home — the stone facade, then the directory board |
