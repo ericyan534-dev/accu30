@@ -274,10 +274,14 @@ function MarginBird({ mascot, side = 'right', inline = false }: MarginBirdProps)
   )
 
   if (inline) {
+    // The reading has to keep a measure worth reading. On the narrowest
+    // screens a bird in the margin leaves twenty characters a line, so there
+    // it stands above the text instead and the float starts once there is
+    // room for both.
     return (
       <figure
-        className={`mt-1 mb-3 w-[44%] max-w-[210px] lg:hidden ${
-          side === 'left' ? 'float-left mr-5' : 'float-right ml-5'
+        className={`mt-1 mb-4 w-[56%] max-w-[200px] min-[23rem]:mb-3 min-[23rem]:w-[38%] min-[23rem]:max-w-[180px] lg:hidden ${
+          side === 'left' ? 'min-[23rem]:float-left min-[23rem]:mr-5' : 'min-[23rem]:float-right min-[23rem]:ml-5'
         }`}
       >
         {art}

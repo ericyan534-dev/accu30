@@ -1,5 +1,11 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouterProvider,
+  useLocation,
+} from 'react-router-dom'
 
 import { CopyProvider, useCopy } from '@/content'
 import TabRail from '@/components/TabRail'
@@ -64,40 +70,61 @@ function Partners() {
   )
 }
 
+/** The lobby itself: the frame that holds still while the floors change. */
+function Lobby() {
+  return (
+    <>
+      <RouteEffects />
+      <div className="flex min-h-svh flex-col">
+        <TabRail />
+        <FloorRail />
+        <main id="main" className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </>
+  )
+}
+
 /** GitHub Pages project sites serve from /<repo>/. Vite exposes that as
  *  BASE_URL, so the router follows it automatically and dev stays at '/'. */
 const ROUTER_BASE = import.meta.env.BASE_URL.replace(/\/$/, '')
 
+/* A data router rather than <BrowserRouter>. The floor-change transition is
+   declared in index.css and every link already asks for it, but in declarative
+   mode `viewTransition` is accepted and ignored — the animation had never once
+   run. Only a data router calls document.startViewTransition. */
+const router = createBrowserRouter(
+  [
+    {
+      element: <Lobby />,
+      children: [
+        { path: '/', element: <Home /> },
+        { path: '/vision', element: <Vision /> },
+        { path: '/ventures', element: <Ventures /> },
+        { path: '/ventures/:slug', element: <VentureDetail /> },
+        { path: '/building', element: <Building /> },
+        { path: '/team', element: <Team /> },
+        // The section was called Leadership until it grew past its four
+        // founders. Shared links from that period still resolve.
+        { path: '/leadership', element: <Navigate to="/team" replace /> },
+        { path: '/news', element: <News /> },
+        { path: '/partners', element: <Partners /> },
+        { path: '/membership', element: <Membership /> },
+        { path: '/membership/apply', element: <Apply /> },
+        { path: '/contact', element: <Contact /> },
+        { path: '*', element: <NotFound /> },
+      ],
+    },
+  ],
+  { basename: ROUTER_BASE || undefined },
+)
+
 export default function App() {
   return (
     <CopyProvider>
-      <BrowserRouter basename={ROUTER_BASE}>
-        <RouteEffects />
-        <div className="flex min-h-svh flex-col">
-          <TabRail />
-          <FloorRail />
-          <main id="main" className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/vision" element={<Vision />} />
-              <Route path="/ventures" element={<Ventures />} />
-              <Route path="/ventures/:slug" element={<VentureDetail />} />
-              <Route path="/building" element={<Building />} />
-              <Route path="/team" element={<Team />} />
-              {/* The section was called Leadership until it grew past its
-                  four founders. Shared links from that period still resolve. */}
-              <Route path="/leadership" element={<Navigate to="/team" replace />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/partners" element={<Partners />} />
-              <Route path="/membership" element={<Membership />} />
-              <Route path="/membership/apply" element={<Apply />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </CopyProvider>
   )
 }

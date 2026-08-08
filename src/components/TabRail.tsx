@@ -125,7 +125,7 @@ export default function TabRail() {
         {open && (
           <div
             id="tab-panel"
-            className="overscroll-contain border-t border-white/12 xl:hidden"
+            className="board-drop overscroll-contain border-t border-white/12 xl:hidden"
             style={{ maxHeight: `calc(100svh - ${Math.round(barHeight)}px)`, overflowY: 'auto' }}
           >
             <div className="wrap py-2">
@@ -155,7 +155,7 @@ export default function TabRail() {
           type="button"
           aria-label="Close the directory"
           onClick={() => setOpen(false)}
-          className="fixed inset-0 z-40 cursor-default bg-board/55 xl:hidden"
+          className="scrim-in fixed inset-0 z-40 cursor-default bg-board/55 xl:hidden"
         />
       )}
     </>
