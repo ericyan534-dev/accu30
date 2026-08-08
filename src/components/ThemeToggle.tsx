@@ -36,7 +36,7 @@ export default function ThemeToggle({ variant = 'rail' }: ThemeToggleProps) {
       onClick={toggle}
       title={label}
       aria-label={label}
-      className="tab shrink-0 justify-center px-3"
+      className="tab shrink-0 justify-center px-4"
     >
       <Glyph theme={theme} />
     </button>

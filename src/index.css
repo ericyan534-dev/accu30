@@ -71,6 +71,19 @@
   color-scheme: light;
 }
 
+/* On a screen this short the bar is a sixth of the room, and worse: the last
+   footer links sit at maximum scroll with eighteen pixels of slack, so when
+   they take focus the browser has nowhere left to scroll them out from under
+   it and they are entirely hidden — WCAG 2.4.11. scroll-padding cannot fix
+   what has no room to move. The bar goes back into the page instead, which
+   also hands a landscape phone sixty pixels back.
+
+   Unlayered on purpose: inside @layer components this loses to Tailwind's own
+   .sticky utility, because layer order is decided before specificity is. */
+@media (max-height: 420px) {
+  header.board.sticky { position: static; }
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
@@ -537,9 +550,15 @@
     transition: border-color 150ms ease-out;
   }
   .form-field:hover { border-bottom-color: var(--color-ink); }
+  /* The focused rule triples rather than doubles, and the padding gives back
+     what the rule takes so nothing reflows. Red and the grey it replaces sit
+     within 1.1:1 of each other in luminance, so for a reader who cannot use
+     the colour, thickness is the whole signal — 1px to 2px was not enough of
+     it on a field 227px tall. */
   .form-field:focus-visible {
     border-bottom-color: var(--color-vermillion-ink);
-    border-bottom-width: 2px;
+    border-bottom-width: 3px;
+    padding-bottom: 0.175rem;
     outline: none;
   }
   .form-field[aria-invalid='true'] { border-bottom-color: var(--color-vermillion-ink); }

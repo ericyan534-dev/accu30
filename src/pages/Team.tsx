@@ -102,7 +102,9 @@ function Portrait({ person, className = '', surface = 'stone' }: PortraitProps) 
     return (
       <img
         src={person.portrait}
-        alt={person.name}
+        /* The name is already text beside this, so the photograph adds nothing
+           an assistive reader has not just been told. */
+        alt=""
         className={`aspect-square object-cover ${
           surface === 'stone' ? 'inset-ring inset-ring-stone-edge' : 'inset-ring inset-ring-white/20'
         } ${className}`}
