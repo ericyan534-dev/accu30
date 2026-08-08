@@ -49,13 +49,22 @@ export default function TabRail() {
       if (e.key === 'Escape') setOpen(false)
     }
     document.addEventListener('keydown', onKey)
+
     // The wall behind the open board holds still. Without this the page ran on
     // underneath the listing while the listing stayed pinned to the top.
     const previous = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+
+    // And it is out of reach, not merely dimmed. Tabbing past the last floor
+    // used to walk into the page behind the scrim, which cannot be scrolled
+    // to and cannot be seen.
+    const behind = [document.getElementById('main'), document.querySelector('footer')]
+    for (const el of behind) el?.setAttribute('inert', '')
+
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = previous
+      for (const el of behind) el?.removeAttribute('inert')
     }
   }, [open])
 
@@ -149,11 +158,14 @@ export default function TabRail() {
 
       {/* The rest of the wall, dimmed. Tapping it puts the board away — the
           only ways out were the Close button and the Escape key, and a phone
-          has no Escape key. */}
+          has no Escape key. It is out of the tab order and hidden from
+          assistive technology on purpose: Close already does this job, and a
+          focus ring around the whole viewport says nothing. */}
       {open && (
         <button
           type="button"
-          aria-label="Close the directory"
+          tabIndex={-1}
+          aria-hidden="true"
           onClick={() => setOpen(false)}
           className="scrim-in fixed inset-0 z-40 cursor-default bg-board/55 xl:hidden"
         />
