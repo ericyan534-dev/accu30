@@ -31,6 +31,18 @@ export default function TabRail() {
     setOpen(false)
   }, [pathname])
 
+  // The listing only exists below xl. Left open across that line — a rotation,
+  // a resized window — it would vanish with the page still locked and inert
+  // behind it, and nothing on screen to say why.
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return
+    const wide = window.matchMedia('(min-width: 80rem)')
+    const sync = () => { if (wide.matches) setOpen(false) }
+    sync()
+    wide.addEventListener('change', sync)
+    return () => wide.removeEventListener('change', sync)
+  }, [])
+
   // The bar grows when the reader enlarges the type, and the listing has to
   // give back exactly that much or its last floor falls off the bottom.
   useEffect(() => {
