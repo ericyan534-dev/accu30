@@ -58,7 +58,7 @@ export default function TabRail() {
     // And it is out of reach, not merely dimmed. Tabbing past the last floor
     // used to walk into the page behind the scrim, which cannot be scrolled
     // to and cannot be seen.
-    const behind = [document.getElementById('main'), document.querySelector('footer')]
+    const behind = [document.getElementById('main'), document.getElementById('site-footer')]
     for (const el of behind) el?.setAttribute('inert', '')
 
     return () => {

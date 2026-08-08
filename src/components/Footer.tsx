@@ -6,7 +6,7 @@ export default function Footer() {
   const copy = useCopy()
 
   return (
-    <footer className="board on-dark">
+    <footer id="site-footer" className="board on-dark">
       <div className="wrap grid gap-x-10 gap-y-9 py-11 sm:grid-cols-2 sm:py-14 lg:grid-cols-4">
         <div>
           <p className="sign-lg text-base text-on-board">{copy.org.short}</p>
