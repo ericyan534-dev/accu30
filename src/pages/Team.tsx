@@ -39,7 +39,7 @@ export default function Team() {
           {copy.team.officers.map(person => (
             <li
               key={person.name}
-              className="grid grid-cols-[7.5rem_1fr] gap-x-6 gap-y-5 border-b border-stone-edge py-9 last:border-b-0 md:grid-cols-[11rem_1fr] md:gap-x-10 lg:grid-cols-[11rem_15rem_1fr]"
+              className="grid grid-cols-[120px_1fr] gap-x-6 gap-y-5 border-b border-stone-edge py-9 last:border-b-0 md:grid-cols-[11rem_1fr] md:gap-x-10 lg:grid-cols-[11rem_15rem_1fr]"
             >
               <Portrait person={person} className="w-full" />
               <div className="min-w-0 self-center lg:self-start lg:pt-1">

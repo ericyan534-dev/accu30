@@ -32,12 +32,17 @@ export default function FormField({ field, item, value, error, onChange }: FormF
 
   return (
     <div className="form-cell">
-      <label htmlFor={field.id} className="sign flex flex-wrap items-baseline gap-x-2 text-ink">
+      {/* The number hangs in its own column so a question long enough to wrap
+          keeps its number beside it. Set inline it dropped onto a line of its
+          own above the question, which is not how a form is numbered. */}
+      <label htmlFor={field.id} className="sign grid grid-cols-[1.9rem_minmax(0,1fr)] text-ink">
         <span className="text-ink-3">{String(item).padStart(2, '0')}</span>
-        {field.label}
-        {field.optional && (
-          <span className="normal-case tracking-normal text-ink-3">optional</span>
-        )}
+        <span className="break-words">
+          {field.label}
+          {field.optional && (
+            <span className="ml-2 normal-case tracking-normal text-ink-3">optional</span>
+          )}
+        </span>
       </label>
 
       {field.hint && (
