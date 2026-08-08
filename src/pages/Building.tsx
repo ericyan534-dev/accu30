@@ -63,11 +63,14 @@ export default function Building() {
             </p>
           </div>
 
+          {/* The number is a rail down the left even on a phone. Stacked, it
+              sat right-aligned on a line of its own — a floor number with no
+              floor next to it. */}
           <ol className="list-none p-0">
             {copy.building.spaces.map((space, i) => (
               <li
                 key={space.name}
-                className="grid gap-x-8 gap-y-4 border-b border-white/12 py-8 last:border-b-0 md:grid-cols-[3.5rem_1fr_15rem] md:items-start"
+                className="grid grid-cols-[2.75rem_1fr] gap-x-5 gap-y-4 border-b border-white/12 py-8 last:border-b-0 md:grid-cols-[3.5rem_1fr_15rem] md:gap-x-8 md:items-start"
               >
                 <span className="dir-floor pt-1 text-on-board-2">
                   {String(i + 1).padStart(2, '0')}
@@ -77,7 +80,7 @@ export default function Building() {
                   <p className="prose-small text-on-board-2">{space.body}</p>
                 </div>
                 {space.image && (
-                  <figure className="plate border-white/15 bg-board-raised">
+                  <figure className="plate col-start-2 border-white/15 bg-board-raised md:col-start-auto">
                     <img src={space.image} alt="" loading="lazy" />
                     <figcaption className="text-on-board-2">
                       <span>{space.imageNote}</span>

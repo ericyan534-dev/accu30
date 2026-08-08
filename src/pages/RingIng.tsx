@@ -88,6 +88,19 @@ export default function RingIng({ venture }: RingIngProps) {
             </a>
           </div>
         </div>
+
+        {/* A phone has no corner for the bird to stand in, so it takes the
+            foot of the plate instead and runs off the right edge the way it
+            does on the wide one. Without this the masthead the brief approved
+            arrived on a phone with its mascot missing entirely. */}
+        <div className="relative flex justify-end lg:hidden">
+          <img
+            src={birdHero}
+            alt=""
+            className="w-[min(72vw,350px)] translate-x-[12%]"
+            loading="eager"
+          />
+        </div>
       </header>
 
       {/* ── The product, at the size a screenshot has to be to be read ─── */}
@@ -168,6 +181,10 @@ export default function RingIng({ venture }: RingIngProps) {
                   columns instead, so the quiet chapters use the full field
                   rather than stranding a column against a blank half-page. */}
               <div className={margin ? '' : 'lg:columns-2 lg:gap-14'}>
+                {/* Narrow screens have no margin to stand a bird in, so it
+                    steps into the text and the reading runs around it. Four of
+                    the fourteen birds simply did not exist on a phone. */}
+                {margin && <MarginBird mascot={margin} side={marginSide} inline />}
                 {section.body.map((para, j) => (
                   <p
                     key={j}
@@ -232,11 +249,20 @@ export default function RingIng({ venture }: RingIngProps) {
   )
 }
 
-/** A bird standing in the margin beside the running text. Hidden below lg,
- *  where there is no margin to stand in. */
-function MarginBird({ mascot }: { readonly mascot: Mascot }) {
-  return (
-    <figure className="m-0 hidden lg:sticky lg:top-28 lg:block">
+interface MarginBirdProps {
+  readonly mascot: Mascot
+  /** Which side of the reading it stands on. Only used inline. */
+  readonly side?: 'left' | 'right'
+  /** `inline` sets the bird into the text itself, for screens with no margin;
+   *  the default stands it in the margin column and is hidden below lg. */
+  readonly inline?: boolean
+}
+
+/** A bird standing beside the running text — in the margin where there is a
+ *  margin, and in the text itself where there is not. */
+function MarginBird({ mascot, side = 'right', inline = false }: MarginBirdProps) {
+  const art = (
+    <>
       <img src={mascot.art} alt="" width={640} height={640} className="block w-full" />
       <span
         aria-hidden="true"
@@ -244,8 +270,22 @@ function MarginBird({ mascot }: { readonly mascot: Mascot }) {
         style={{ background: mascot.accent }}
       />
       <figcaption className="sign mt-3 text-ink-3">FBTI {mascot.code}</figcaption>
-    </figure>
+    </>
   )
+
+  if (inline) {
+    return (
+      <figure
+        className={`mt-1 mb-3 w-[44%] max-w-[210px] lg:hidden ${
+          side === 'left' ? 'float-left mr-5' : 'float-right ml-5'
+        }`}
+      >
+        {art}
+      </figure>
+    )
+  }
+
+  return <figure className="m-0 hidden lg:sticky lg:top-28 lg:block">{art}</figure>
 }
 
 interface ChapterPlateProps {
@@ -264,6 +304,15 @@ interface ChapterPlateProps {
 function ChapterPlate({ number, title, mascot, place }: ChapterPlateProps) {
   // Eager: six chapter birds are the page's structure, not decoration below
   // the fold, and a lazy one leaves a plate with a hole in it.
+  // Narrow: the bird runs off the edge of the plate on the side its chapter
+  // is composed to, so six openers still never compose twice on a phone.
+  // Stacked and left-aligned they were a 200px picture with half the plate
+  // empty beside it, six times down the page.
+  const bleed =
+    place === 'left'
+      ? '-translate-x-[11%] self-start md:translate-x-0 md:self-center'
+      : 'translate-x-[11%] self-end md:translate-x-0 md:self-center'
+
   const art = mascot && (
     <img
       src={mascot.art}
@@ -272,8 +321,8 @@ function ChapterPlate({ number, title, mascot, place }: ChapterPlateProps) {
       height={640}
       className={
         place === 'lead'
-          ? 'w-[min(56vw,270px)] shrink-0'
-          : 'w-[min(52vw,300px)] shrink-0 lg:w-[340px]'
+          ? 'w-[min(64vw,300px)] shrink-0 sm:w-[min(56vw,270px)]'
+          : `w-[min(68vw,320px)] shrink-0 md:w-[300px] lg:w-[340px] ${bleed}`
       }
     />
   )
@@ -320,7 +369,7 @@ function ChapterPlate({ number, title, mascot, place }: ChapterPlateProps) {
   }
 
   return (
-    <div className="board on-dark">
+    <div className="board on-dark overflow-hidden">
       <div
         className={`wrap flex flex-col gap-8 py-12 sm:py-14 md:items-center md:gap-12 ${
           place === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'

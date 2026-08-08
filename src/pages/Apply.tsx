@@ -145,7 +145,7 @@ export default function Apply() {
               <p className="prose-small max-w-none text-ink-2">{application.declaration}</p>
               <label
                 htmlFor="declaration"
-                className="mt-5 flex min-h-[44px] cursor-pointer items-start gap-3.5"
+                className="mt-5 flex min-h-[44px] cursor-pointer items-center gap-3.5"
               >
                 <input
                   id="declaration"
@@ -162,7 +162,7 @@ export default function Apply() {
                   }}
                   aria-invalid={Boolean(errors.declaration)}
                   aria-describedby={errors.declaration ? 'declaration-error' : undefined}
-                  className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-vermillion)]"
+                  className="h-6 w-6 shrink-0 accent-[var(--color-vermillion)]"
                 />
                 <span className="text-ink">I confirm the declaration above.</span>
               </label>

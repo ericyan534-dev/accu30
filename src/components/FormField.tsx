@@ -57,13 +57,17 @@ export default function FormField({ field, item, value, error, onChange }: FormF
           aria-describedby={describedBy || undefined}
         />
       ) : field.kind === 'choice' ? (
+        // One choice per line until there is room for two without breaking a
+        // word in half: at 320px the two-up grid gave each option 114px and
+        // cut "Entrepreneurship" off inside its own cell. The marks are 24px,
+        // the rows 44px — a form filled in with a thumb.
         <fieldset className="mt-3 mb-0 border-0 p-0">
           <legend className="sr-only">{field.label}</legend>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-2 lg:grid-cols-4">
+          <div className="grid gap-x-6 gap-y-1 min-[27rem]:grid-cols-2 lg:grid-cols-4">
             {field.options?.map(option => (
               <label
                 key={option}
-                className="flex min-h-[30px] cursor-pointer items-center gap-2.5 text-[0.95rem] text-ink-2"
+                className="flex min-h-[44px] cursor-pointer items-center gap-3 text-[0.95rem] leading-snug text-ink-2"
               >
                 <input
                   type="radio"
@@ -72,7 +76,7 @@ export default function FormField({ field, item, value, error, onChange }: FormF
                   checked={value === option}
                   onChange={e => onChange(e.target.value)}
                   aria-describedby={describedBy || undefined}
-                  className="h-4 w-4 shrink-0 accent-[var(--color-vermillion)]"
+                  className="h-6 w-6 shrink-0 accent-[var(--color-vermillion)]"
                 />
                 {option}
               </label>

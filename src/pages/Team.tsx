@@ -30,19 +30,25 @@ export default function Team() {
 
         {/* Portrait · office · biography, in three columns across the full
             measure. Two columns left the right third of every row empty,
-            because a 68ch biography cannot fill 1100px on its own. */}
+            because a 68ch biography cannot fill 1100px on its own.
+            On a phone the portrait stands beside the name instead of alone
+            above it — held on its own row it was a 136px square with two
+            thirds of the column empty next to it. The biography keeps the
+            full width underneath until there is a third column to put it in. */}
         <ul className="list-none p-0">
           {copy.team.officers.map(person => (
             <li
               key={person.name}
-              className="grid gap-x-10 gap-y-5 border-b border-stone-edge py-9 last:border-b-0 md:grid-cols-[11rem_1fr] lg:grid-cols-[11rem_15rem_1fr]"
+              className="grid grid-cols-[7.5rem_1fr] gap-x-6 gap-y-5 border-b border-stone-edge py-9 last:border-b-0 md:grid-cols-[11rem_1fr] md:gap-x-10 lg:grid-cols-[11rem_15rem_1fr]"
             >
-              <Portrait person={person} className="w-[8.5rem] md:w-full" />
-              <div className="min-w-0 lg:pt-1">
+              <Portrait person={person} className="w-full" />
+              <div className="min-w-0 self-center lg:self-start lg:pt-1">
                 <h3 className="text-2xl">{person.name}</h3>
                 <p className="sign-lg mt-3 text-sm text-vermillion-ink">{person.role}</p>
               </div>
-              <p className="prose-body min-w-0 text-ink-2 lg:pt-1">{person.bio}</p>
+              <p className="prose-body col-span-2 min-w-0 text-ink-2 lg:col-span-1 lg:pt-1">
+                {person.bio}
+              </p>
             </li>
           ))}
         </ul>

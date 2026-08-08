@@ -12,9 +12,19 @@ export default function Home() {
     <>
       {/* ── The facade. Mission cut into stone, dragon in relief. ────────── */}
       <section className="relative grid min-h-[calc(100svh-3.5rem)] content-between gap-8 overflow-hidden bg-linear-to-b from-stone to-stone-deep py-10 sm:py-14">
+        {/* On the wall the dragon is carved at about half the width of the
+            facade. Held to 56vw on a phone it came out 218px wide, cropped a
+            fifth of the way in, and read as a scuff behind the buttons rather
+            than as the mark. The phone gets its own cut: full bleed across the
+            stone, the head clear of the type, the tail running off the right
+            edge the way it does on the wall. */}
+        <Relief
+          className="top-1/2 right-[-30%] w-[130vw] -translate-y-1/2 text-ink md:hidden"
+          opacity={0.075}
+        />
         {/* Hidden between md and lg, where the mark would cross the prose. */}
         <Relief
-          className="top-1/2 right-[-6%] hidden w-[min(56vw,660px)] -translate-y-1/2 text-ink max-md:block lg:block"
+          className="top-1/2 right-[-6%] hidden w-[min(56vw,660px)] -translate-y-1/2 text-ink lg:block"
           opacity={0.07}
         />
 
@@ -132,8 +142,10 @@ export default function Home() {
           </div>
 
           {/* items-start: the plate must not stretch a short image into a
-              tall empty mount. */}
-          <div className="grid grid-cols-2 items-start gap-4 self-start">
+              tall empty mount. Two-up only once there is width for two — at
+              310px each plate held a 150px photograph under a caption that
+              had to break in the middle of itself. */}
+          <div className="grid items-start gap-5 self-start sm:grid-cols-2 sm:gap-4">
             <figure className="plate">
               <img
                 src={exteriorImg}
@@ -152,7 +164,7 @@ export default function Home() {
                 <span>Reading room</span>
               </figcaption>
             </figure>
-            <p className="prose-small col-span-2 text-ink-2">{copy.building.imageryNotice}</p>
+            <p className="prose-small col-span-full text-ink-2">{copy.building.imageryNotice}</p>
           </div>
         </div>
       </section>
