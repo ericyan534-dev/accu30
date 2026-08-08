@@ -18,7 +18,7 @@ export default function Membership() {
         standfirst={copy.membership.standfirst}
       />
 
-      <div className="wrap grid gap-12 py-12 sm:py-16 lg:grid-cols-[1fr_1fr] lg:gap-16">
+      <div className="wrap grid gap-12 pt-12 pb-16 sm:py-16 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <div>
           {copy.membership.body.map((para, i) => (
             <p key={i} className={`prose-body${i > 0 ? ' mt-4' : ''} text-ink-2`}>
@@ -46,7 +46,7 @@ export default function Membership() {
             <h2 className="incised sign-lg text-xl">{copy.membership.applyHeading}</h2>
             <p className="prose-body mt-4 text-on-board-2">{copy.membership.applyBody}</p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Link to="/membership/apply" className="action">
                 {copy.actions.nominate}
               </Link>

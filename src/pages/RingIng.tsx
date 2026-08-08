@@ -79,7 +79,7 @@ export default function RingIng({ venture }: RingIngProps) {
             {venture.summary}
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a className="action" href={ringing.siteUrl} target="_blank" rel="noreferrer noopener">
               Visit {ringing.siteLabel} ↗
             </a>

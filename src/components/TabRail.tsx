@@ -17,7 +17,16 @@ export default function TabRail() {
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
   const barRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const [barHeight, setBarHeight] = useState(56)
+
+  /** Close, and hand the reader back the control they opened it with.
+   *  Dropped, focus fell to <body> and the next Tab restarted at the skip
+   *  link — the keyboard reader lost their place entirely. */
+  const close = () => {
+    setOpen(false)
+    triggerRef.current?.focus()
+  }
 
   /** The note the directory already holds for each floor, so the open board
    *  reads as the board rather than as eight bare words. */
@@ -58,12 +67,17 @@ export default function TabRail() {
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false)
+      if (e.key === 'Escape') close()
     }
     document.addEventListener('keydown', onKey)
 
-    // The wall behind the open board holds still. Without this the page ran on
-    // underneath the listing while the listing stayed pinned to the top.
+    // The wall behind the open board holds still under the wheel and under a
+    // finger. It is not pinned against a programmatic scroll — find-in-page can
+    // still move it — because the honest fix for that, position:fixed on body,
+    // would take the sticky header this panel hangs from off the screen with
+    // it. Nothing a reader can reach by hand or by keyboard moves the wall:
+    // the wheel is stopped here, touch by overscroll-contain on the panel, and
+    // the keyboard by inert below.
     const previous = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
@@ -128,6 +142,7 @@ export default function TabRail() {
           <div className="ml-auto flex items-stretch xl:hidden">
             <ThemeToggle />
             <button
+              ref={triggerRef}
               type="button"
               className="sign flex items-center gap-2 px-3 text-on-board"
               aria-expanded={open}
@@ -178,7 +193,7 @@ export default function TabRail() {
           type="button"
           tabIndex={-1}
           aria-hidden="true"
-          onClick={() => setOpen(false)}
+          onClick={close}
           className="scrim-in fixed inset-0 z-40 cursor-default bg-board/55 xl:hidden"
         />
       )}

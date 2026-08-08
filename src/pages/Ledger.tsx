@@ -26,7 +26,7 @@ export default function Ledger({
     <>
       <PageHeader floor={floor} title={title} standfirst={standfirst} />
 
-      <div className="wrap py-12 sm:py-16">
+      <div className="wrap pt-12 pb-20 sm:pt-16 sm:pb-24">
         <div className="board on-dark px-8 py-14 sm:px-12 sm:py-20">
           <h2 className="incised sign-lg text-2xl">{emptyHeading}</h2>
           <p className="prose-body mt-5 text-on-board-2">{emptyBody}</p>

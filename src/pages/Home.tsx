@@ -52,7 +52,7 @@ export default function Home() {
 
           <p className="prose-body mt-6 max-w-[52ch] text-lg text-ink-2">{copy.org.summary}</p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <Link to="/contact" className="action">
               {copy.actions.partner}
             </Link>

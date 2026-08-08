@@ -186,7 +186,7 @@ export default function Apply() {
           </p>
         )}
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
           <button type="submit" className="action">
             {application.submitLabel}
           </button>
