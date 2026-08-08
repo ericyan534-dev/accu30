@@ -18,8 +18,11 @@ export default function Home() {
             than as the mark. The phone gets its own cut: full bleed across the
             stone, the head clear of the type, the tail running off the right
             edge the way it does on the wall. */}
+        {/* Held at the middle of the section it drifted down over the three
+            doors, and the floor numbers on it measured 4.41:1 — under AA. It
+            is carved across the mission instead, clear of anything small. */}
         <Relief
-          className="top-1/2 right-[-30%] w-[130vw] -translate-y-1/2 text-ink md:hidden"
+          className="top-[38%] right-[-30%] w-[130vw] -translate-y-1/2 text-ink md:hidden"
           opacity={0.075}
         />
         {/* Hidden between md and lg, where the mark would cross the prose. */}

@@ -20,7 +20,11 @@
 
   --color-ink: #14181a;
   --color-ink-2: #3e4649; /* 7.2:1 on stone */
-  --color-ink-3: #5a6366; /* 4.6:1 on stone — the smallest permitted */
+  /* The smallest permitted grey, and it has to clear AA on BOTH stone values,
+     because the facade is a gradient and its foot is stone-deep. At #5a6366
+     the three floor numbers under the mission measured 4.41:1 on a phone and
+     4.45:1 on a desk. Measured now: 5.25:1 on stone, 4.54:1 on stone-deep. */
+  --color-ink-3: #565f62;
   --color-on-board: #e6e8e7; /* 14.3:1 on board */
   --color-on-board-2: #93a0a3; /* 6.8:1 on board, tinted from the slate */
 

@@ -27,7 +27,15 @@ export default function PageHeader({
 }: PageHeaderProps) {
   return (
     <header className="relative overflow-hidden border-b border-stone-edge bg-linear-to-b from-stone to-stone-deep">
-      {/* kept clear of the text column so it never competes with reading */}
+      {/* Kept clear of the text column so it never competes with reading.
+          The narrow cut is its own: held to 38vw a phone got a 148px mark it
+          could not read, so it was hidden and every floor opened on a blank
+          grey band instead. Here it is carved across the foot of the plate
+          and runs off the bottom-right corner. */}
+      <Relief
+        className="right-[-26%] bottom-[-34%] w-[96vw] text-ink lg:hidden"
+        opacity={0.055}
+      />
       <Relief
         className="right-[-10%] bottom-[-38%] hidden w-[min(38vw,420px)] text-ink lg:block"
         opacity={0.05}

@@ -9,6 +9,7 @@ export default function NotFound() {
   return (
     <>
       <header className="relative overflow-hidden border-b border-stone-edge bg-linear-to-b from-stone to-stone-deep">
+        <Relief className="right-[-26%] bottom-[-32%] w-[96vw] text-ink lg:hidden" opacity={0.055} />
         <Relief className="right-[-10%] bottom-[-36%] hidden w-[min(38vw,420px)] text-ink lg:block" opacity={0.05} />
         <div className="wrap relative py-16 sm:py-24">
           <p className="sign mb-5 text-vermillion-ink">404</p>
