@@ -125,7 +125,11 @@ export interface SiteCopy {
     readonly partner: string
     readonly seeWork: string
     readonly readProgramme: string
+    /** The label on a link into the Contact floor once an address exists. */
     readonly enquire: string
+    /** The same link while no address is published — it names the floor,
+     *  not an act of sending that cannot happen. */
+    readonly reach: string
     readonly nominate: string
   }
 
@@ -254,10 +258,39 @@ export interface SiteCopy {
     readonly standfirst: string
     readonly generalHeading: string
     readonly generalBody: string
+    /** The instruction to write in — shown only when there is somewhere to write. */
+    readonly generalAsk: string
     readonly pressHeading: string
     readonly pressBody: string
     readonly addressHeading: string
     readonly addressBody: string
+  }
+
+  /** The enquiry form, and the plate that stands in for it while no address
+   *  is published. */
+  readonly enquiry: {
+    readonly heading: string
+    readonly note: string
+    readonly pendingHeading: string
+    readonly pendingBody: string
+    readonly nameLabel: string
+    readonly emailLabel: string
+    readonly organisationLabel: string
+    readonly optional: string
+    readonly messageLabel: string
+    readonly nominationMessageLabel: string
+    readonly subjects: {
+      readonly general: string
+      readonly press: string
+      readonly nomination: string
+    }
+    readonly errors: {
+      readonly name: string
+      readonly email: string
+      readonly emailFormat: string
+      readonly message: string
+    }
+    readonly sent: string
   }
 
   readonly footer: {

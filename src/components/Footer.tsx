@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import { useCopy } from '@/content'
+import { useCopy, useEnquiryLabel } from '@/content'
 
 /** The plate at the door: what this is, where it is, and how to reach it. */
 export default function Footer() {
   const copy = useCopy()
+  const enquiryLabel = useEnquiryLabel()
 
   return (
     <footer id="site-footer" className="board on-dark">
@@ -54,7 +55,7 @@ export default function Footer() {
         <div className="grid content-start gap-3">
           <p className="sign text-on-board-2">{copy.footer.builtNote}</p>
           <Link to="/contact" className="action action-ghost justify-self-start">
-            {copy.actions.enquire}
+            {enquiryLabel}
           </Link>
         </div>
       </div>

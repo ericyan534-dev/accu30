@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '@/components/PageHeader'
-import { useCopy } from '@/content'
+import { useEnquiryLabel } from '@/content'
 
 interface LedgerProps {
   readonly floor: string
@@ -20,7 +20,7 @@ export default function Ledger({
   emptyHeading,
   emptyBody,
 }: LedgerProps) {
-  const copy = useCopy()
+  const enquiryLabel = useEnquiryLabel()
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function Ledger({
           <h2 className="incised sign-lg text-2xl">{emptyHeading}</h2>
           <p className="prose-body mt-5 text-on-board-2">{emptyBody}</p>
           <Link to="/contact" className="action action-ghost mt-8">
-            {copy.actions.enquire}
+            {enquiryLabel}
           </Link>
         </div>
       </div>

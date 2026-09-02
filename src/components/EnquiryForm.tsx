@@ -1,13 +1,11 @@
 import { useState, type FormEvent } from 'react'
+import { useCopy } from '@/content'
 import { CONTACT_EMAIL } from '@/config'
 
 type Kind = 'general' | 'press' | 'nomination'
 
 interface EnquiryFormProps {
   readonly kind: Kind
-  readonly heading: string
-  readonly note: string
-  readonly submitLabel: string
   /** Overrides CONTACT_EMAIL for this form (e.g. the press address). */
   readonly address?: string | null
 }
@@ -23,22 +21,14 @@ type Errors = Partial<Record<keyof Fields, string>>
 
 const EMPTY: Fields = { name: '', email: '', organisation: '', message: '' }
 
-const SUBJECTS: Record<Kind, string> = {
-  general: 'Partnership enquiry',
-  press: 'Press enquiry',
-  nomination: 'Expression of interest',
-}
-
 /** Composes a mail draft rather than posting to an endpoint that does not
- *  exist. When no address is configured the form says so plainly instead of
- *  accepting input it cannot deliver. */
-export default function EnquiryForm({
-  kind,
-  heading,
-  note,
-  submitLabel,
-  address,
-}: EnquiryFormProps) {
+ *  exist. When no address is configured the form does not render at all: the
+ *  same plate says so, in words that do not point at a form the reader
+ *  cannot see. Every string comes from the locale layer, so 中文 is a second
+ *  copy file and not a second component. */
+export default function EnquiryForm({ kind, address }: EnquiryFormProps) {
+  const copy = useCopy()
+  const text = copy.enquiry
   const to = address !== undefined ? address : CONTACT_EMAIL
   const [fields, setFields] = useState<Fields>(EMPTY)
   const [errors, setErrors] = useState<Errors>({})
@@ -47,12 +37,8 @@ export default function EnquiryForm({
   if (!to) {
     return (
       <section className="board on-dark p-8 sm:p-10">
-        <h2 className="incised sign-lg text-xl">{heading}</h2>
-        <p className="prose-body mt-4 text-on-board-2">
-          No enquiry address has been published yet. Once ACC-U30 confirms one, this form will
-          send to it.
-        </p>
-        <p className="sign mt-6 text-on-board-2">Address pending</p>
+        <h2 className="incised sign-lg text-xl">{text.pendingHeading}</h2>
+        <p className="prose-body mt-4 text-on-board-2">{text.pendingBody}</p>
       </section>
     )
   }
@@ -64,14 +50,12 @@ export default function EnquiryForm({
 
   const validate = (values: Fields): Errors => {
     const next: Errors = {}
-    if (!values.name.trim()) next.name = 'Add your name so we know who is writing.'
-    if (!values.email.trim()) next.email = 'Add an email address so we can reply.'
+    if (!values.name.trim()) next.name = text.errors.name
+    if (!values.email.trim()) next.email = text.errors.email
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(values.email.trim())) {
-      next.email = 'That address is missing an @ or a domain — check it and try again.'
+      next.email = text.errors.emailFormat
     }
-    if (values.message.trim().length < 20) {
-      next.message = 'Tell us a little more — at least a sentence or two.'
-    }
+    if (values.message.trim().length < 20) next.message = text.errors.message
     return next
   }
 
@@ -82,9 +66,9 @@ export default function EnquiryForm({
     if (Object.keys(found).length > 0) return
 
     const body = [
-      `Name: ${fields.name}`,
-      fields.organisation ? `Organisation: ${fields.organisation}` : null,
-      `Email: ${fields.email}`,
+      `${text.nameLabel}: ${fields.name}`,
+      fields.organisation ? `${text.organisationLabel}: ${fields.organisation}` : null,
+      `${text.emailLabel}: ${fields.email}`,
       '',
       fields.message,
     ]
@@ -92,20 +76,20 @@ export default function EnquiryForm({
       .join('\n')
 
     window.location.href = `mailto:${to}?subject=${encodeURIComponent(
-      SUBJECTS[kind],
+      text.subjects[kind],
     )}&body=${encodeURIComponent(body)}`
     setSent(true)
   }
 
   return (
     <section className="board on-dark p-8 sm:p-10">
-      <h2 className="incised sign-lg text-xl">{heading}</h2>
-      <p className="sign mt-3 text-on-board-2">{note}</p>
+      <h2 className="incised sign-lg text-xl">{text.heading}</h2>
+      <p className="prose-small mt-3 text-on-board-2">{text.note}</p>
 
       <form className="mt-8 grid gap-5" onSubmit={onSubmit} noValidate>
         <Field
           id={`${kind}-name`}
-          label="Your name"
+          label={text.nameLabel}
           value={fields.name}
           error={errors.name}
           onChange={update('name')}
@@ -113,7 +97,7 @@ export default function EnquiryForm({
         />
         <Field
           id={`${kind}-email`}
-          label="Email"
+          label={text.emailLabel}
           type="email"
           value={fields.email}
           error={errors.email}
@@ -122,15 +106,15 @@ export default function EnquiryForm({
         />
         <Field
           id={`${kind}-org`}
-          label="Organisation"
-          optional
+          label={text.organisationLabel}
+          optional={text.optional}
           value={fields.organisation}
           onChange={update('organisation')}
           autoComplete="organization"
         />
         <Field
           id={`${kind}-message`}
-          label={kind === 'nomination' ? 'What have you built?' : 'What are you proposing?'}
+          label={kind === 'nomination' ? text.nominationMessageLabel : text.messageLabel}
           value={fields.message}
           error={errors.message}
           onChange={update('message')}
@@ -139,11 +123,11 @@ export default function EnquiryForm({
 
         <div className="flex flex-wrap items-center gap-4">
           <button type="submit" className="action">
-            {submitLabel}
+            {copy.actions.enquire}
           </button>
           {sent && (
-            <p className="sign text-on-board" role="status">
-              Your mail app should be open — send it and we will reply.
+            <p className="prose-small text-on-board" role="status">
+              {text.sent}
             </p>
           )}
         </div>
@@ -159,11 +143,15 @@ interface FieldProps {
   readonly onChange: (value: string) => void
   readonly error?: string
   readonly type?: string
-  readonly optional?: boolean
+  /** The word that marks the field optional, in the reader's language. */
+  readonly optional?: string
   readonly multiline?: boolean
   readonly autoComplete?: string
 }
 
+/** One ruled box on the board. The error is a sentence, so it is set as one:
+ *  serif, in the reading colour. The red stays on the field's edge, where
+ *  4.19:1 is enough for a line and not for words. */
 function Field({
   id,
   label,
@@ -171,7 +159,7 @@ function Field({
   onChange,
   error,
   type = 'text',
-  optional = false,
+  optional,
   multiline = false,
   autoComplete,
 }: FieldProps) {
@@ -184,7 +172,7 @@ function Field({
     <div>
       <label htmlFor={id} className="sign mb-2 flex items-baseline gap-2 text-on-board-2">
         {label}
-        {optional && <span className="normal-case tracking-normal opacity-70">(optional)</span>}
+        {optional && <span className="normal-case tracking-normal opacity-70">{optional}</span>}
       </label>
       {multiline ? (
         <textarea
@@ -209,7 +197,7 @@ function Field({
         />
       )}
       {error && (
-        <p id={describedBy} className="sign mt-2 text-vermillion-lit">
+        <p id={describedBy} className="prose-small mt-2 text-on-board">
           {error}
         </p>
       )}

@@ -110,6 +110,7 @@ export const en: SiteCopy = {
     seeWork: 'See the four ventures',
     readProgramme: 'Read the programme',
     enquire: 'Send an enquiry',
+    reach: 'How to reach us',
     nominate: 'Apply for membership',
   },
 
@@ -717,13 +718,39 @@ export const en: SiteCopy = {
     title: 'Contact',
     standfirst: 'For partnership, press, and general enquiries.',
     generalHeading: 'General & partnership',
-    generalBody:
-      'For partnerships, sponsorship, institutional collaboration, and anything else — write to us and say plainly what you are proposing.',
+    generalBody: 'For partnerships, sponsorship, institutional collaboration, and anything else.',
+    generalAsk: 'Write to us and say plainly what you are proposing.',
     pressHeading: 'Press',
     pressBody:
       'For interviews, comment, and background on ACC-U30, its ventures, or the building.',
     addressHeading: 'Where we are',
     addressBody: 'New York City. A public address will be listed here once the office is confirmed.',
+  },
+
+  enquiry: {
+    heading: 'Write to us',
+    note: 'Sending opens the message as a draft in your mail app.',
+    pendingHeading: 'No address published yet',
+    pendingBody:
+      'ACC-U30 has not confirmed a public enquiry address. Once it has, the address and a way to write to it will appear on this floor.',
+    nameLabel: 'Your name',
+    emailLabel: 'Email',
+    organisationLabel: 'Organisation',
+    optional: '(optional)',
+    messageLabel: 'What are you proposing?',
+    nominationMessageLabel: 'What have you built?',
+    subjects: {
+      general: 'Partnership enquiry',
+      press: 'Press enquiry',
+      nomination: 'Expression of interest',
+    },
+    errors: {
+      name: 'Add your name so we know who is writing.',
+      email: 'Add an email address so we can reply.',
+      emailFormat: 'That address is missing an @ or a domain — check it and try again.',
+      message: 'Tell us a little more — at least a sentence or two.',
+    },
+    sent: 'Your mail app should be open — send it and we will reply.',
   },
 
   footer: {

@@ -15,7 +15,12 @@ export default function Contact() {
         <div>
           <section className="border-b border-stone-edge pb-8">
             <h2 className="sign-lg mb-4 text-xl">{copy.contact.generalHeading}</h2>
-            <p className="prose-body text-ink-2">{copy.contact.generalBody}</p>
+            {/* The purpose is always true; the instruction to write is only
+                true once there is an address to write to. */}
+            <p className="prose-body text-ink-2">
+              {copy.contact.generalBody}
+              {CONTACT_EMAIL && <> {copy.contact.generalAsk}</>}
+            </p>
             {CONTACT_EMAIL && (
               <a href={`mailto:${CONTACT_EMAIL}`} className="sign mt-4 inline-block text-vermillion-ink">
                 {CONTACT_EMAIL}
@@ -40,12 +45,7 @@ export default function Contact() {
         </div>
 
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <EnquiryForm
-            kind="general"
-            heading={copy.actions.partner}
-            note="Enquiries are read by the founders."
-            submitLabel={copy.actions.enquire}
-          />
+          <EnquiryForm kind="general" />
         </div>
       </div>
     </>
