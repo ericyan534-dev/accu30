@@ -123,9 +123,12 @@ export default function TabRail() {
           </Link>
 
           {/* desktop tabs */}
+          {/* Named for what it is on the wall — the directory — so the
+              landmark list says the same thing on every width, and does not
+              share a name with the repeat at the foot of the page. */}
           <nav
             className="ml-auto hidden min-w-0 items-stretch justify-end xl:flex"
-            aria-label="Sections"
+            aria-label="Directory"
           >
             {copy.nav.map(item => (
               <NavLink viewTransition key={item.to} to={item.to} className="tab">
@@ -157,10 +160,13 @@ export default function TabRail() {
           </div>
         </div>
 
-        {/* mobile: the full board listing rather than a cramped menu */}
+        {/* mobile: the full board listing rather than a cramped menu. It is
+            the site's navigation, so it is a navigation landmark — as a plain
+            division it was eight links with no name in the landmark list. */}
         {open && (
-          <div
+          <nav
             id="tab-panel"
+            aria-label="Directory"
             className="board-drop overscroll-contain border-t border-white/12 xl:hidden"
             style={{ maxHeight: `calc(100svh - ${Math.round(barHeight)}px)`, overflowY: 'auto' }}
           >
@@ -179,7 +185,7 @@ export default function TabRail() {
                 </NavLink>
               ))}
             </div>
-          </div>
+          </nav>
         )}
       </header>
 

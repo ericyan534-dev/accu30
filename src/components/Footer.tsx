@@ -14,12 +14,19 @@ export default function Footer() {
           <p className="mt-3 text-sm leading-relaxed text-on-board-2">{copy.org.mission}</p>
         </div>
 
-        {/* Four columns is right for a wall and wrong for a phone: stacked, the
+        {/* One listing, one landmark. Two columns are a layout decision, not
+            two navigations — split into a pair of <nav>s the landmark list
+            read "Sections" (the header's name too) and "More sections".
+            Four columns is right for a wall and wrong for a phone: stacked, the
             eight links ran the plate to seven hundred pixels of near-empty
             dark. Below the wide layout the two lists sit side by side and the
-            plate goes back to being a plate. */}
-        <div className="grid min-w-0 grid-cols-2 gap-x-8 sm:col-span-2 lg:contents">
-          <nav aria-label="Sections" className="grid min-w-0 grid-cols-1 content-start">
+            plate goes back to being a plate. On the wall the inner gap matches
+            the outer one, so the two columns still land on the grid. */}
+        <nav
+          aria-label="Footer"
+          className="grid min-w-0 grid-cols-2 gap-x-8 sm:col-span-2 lg:col-span-2 lg:gap-x-10"
+        >
+          <div className="grid min-w-0 grid-cols-1 content-start">
             {copy.nav.slice(0, 4).map(item => (
               <Link
                 viewTransition
@@ -33,9 +40,9 @@ export default function Footer() {
                 <span className="min-w-0 break-words">{item.label}</span>
               </Link>
             ))}
-          </nav>
+          </div>
 
-          <nav aria-label="More sections" className="grid min-w-0 grid-cols-1 content-start">
+          <div className="grid min-w-0 grid-cols-1 content-start">
             {copy.nav.slice(4).map(item => (
               <Link
                 viewTransition
@@ -49,8 +56,8 @@ export default function Footer() {
                 <span className="min-w-0 break-words">{item.label}</span>
               </Link>
             ))}
-          </nav>
-        </div>
+          </div>
+        </nav>
 
         <div className="grid content-start gap-3">
           <p className="sign text-on-board-2">{copy.footer.builtNote}</p>
