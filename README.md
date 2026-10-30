@@ -1,7 +1,7 @@
 # ACC-U30 — Asian Community Center, Under 30
 
 Public site for **ACC-U30**, a nonprofit that incubates ventures started by its members and
-is developing a community building in New York City.
+is developing a community building in NYC.
 
 React 19 · Vite 8 · Tailwind CSS v4 · React Router 7 · TypeScript.
 
